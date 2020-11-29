@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
     },
     cardGrid: {
+        backgroundColor: '#de28e3',
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
     },
@@ -48,7 +49,7 @@ export default function ServiceList() {
 
     return (
         <React.Fragment>
-            <Container className={classes.cardGrid} maxWidth="md">
+            <Container className={classes.cardGrid}>
                 {/* End hero unit */}
                 <Grid container spacing={4}>
                     {cards.map((card) => (
