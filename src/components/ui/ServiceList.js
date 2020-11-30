@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -42,18 +43,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 export default function ServiceList() {
     const classes = useStyles();
 
     return (
         <React.Fragment>
+
             <Container className={classes.cardGrid}>
                 {/* End hero unit */}
                 <Grid container spacing={4}>
+                    <Grid item xs={12}><Box textAlign="center" fontSize={30}>Verificati toate serviciile</Box></Grid>
                     {cards.map((card) => (
-                        <Grid item key={card} xs={12} sm={6} md={4}>
+                        <Grid item key={card} xs={12} sm={6} md={3}>
                             <Card className={classes.card}>
                                 <CardMedia
                                     className={classes.cardMedia}
@@ -69,12 +72,18 @@ export default function ServiceList() {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small" color="primary">
-                                            View
-                                    </Button>
-                                    <Button size="small" color="primary">
-                                            Edit
-                                    </Button>
+                                    <Typography className={classes.root}>
+                                        <Link href="#" onClick={() => {
+                                            console.info('I\'m a button.');
+                                        }} color="inherit">
+                                            Some text
+                                        </Link>
+                                        <Link href="#" onClick={() => {
+                                            console.info('I\'m a button.');
+                                        }} color="inherit" variant="body2">
+                                            Some more strange text
+                                        </Link>
+                                    </Typography>
                                 </CardActions>
                             </Card>
                         </Grid>

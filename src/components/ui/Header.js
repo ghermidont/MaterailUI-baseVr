@@ -2,33 +2,23 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
-//import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-//import Icon from '@material-ui/core/Icon';
-//import DeleteIcon from '@material-ui/icons/Delete';
-//import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Paper from '@material-ui/core/Paper';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
-// https://material-ui.com/components/menus/
-// https://material-ui.com/components/buttons/#text-buttons
-// https://material-ui.com/components/tabs/
-// import Typography from '@material-ui/core/Typography';
-// https://material-ui.com/components/app-bar/
-// https://mui-treasury.com/
+import Box from '@material-ui/core/Box';
 import headerBgImage from '../../assets/png/headerBackgroung.png';
 import button1BgImage from '../../assets/png/1.1.png';
-
+import primariaSign from '../../assets/png/5.1.png';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+//https://github.com/jcoreio/material-ui-popup-state
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
-        //display: 'flex',
-        //alignItems: 'center',
         minWidth: 300,
-        //height: '15rem',
-        //position:'relative',
-        //alignContent: 'center',
         backgroundImage: `url(${headerBgImage})`,
         backgroundSize: '100% 100%',
         backgroundColor: '#2c3503',
@@ -37,13 +27,16 @@ const useStyles = makeStyles(theme => ({
         justify: 'center',
         alignItems: 'center',
     },
-
+    primariaAndSymbol:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     gridButtons:{
         margin: '0 auto',
         display: 'block',
         textAlign: 'center'
     },
-    
     buttons: {
         margin: theme.spacing(1),
         backgroundSize: '1.5rem',
@@ -82,11 +75,7 @@ const useStyles = makeStyles(theme => ({
     button6: {
         backgroundImage: `url(${button1BgImage})`
     },
-    //bottomDiv: {
-    //height: '100px',
-    //}
 }));
-
 
 export default function Header() {
     const classes = useStyles();
@@ -97,13 +86,31 @@ export default function Header() {
             <div className={classes.root}>
                 <Grid container spacing={3} direction="row" justify="center" alignItems="center">
                     <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>xs=12 sm=6</Paper>
+                        <PopupState variant="popover" popupId="demo-popup-menu">
+                            {(popupState) => (
+                                <React.Fragment>
+                                    <Button variant="contained" color="primary" {...bindTrigger(popupState)}>
+                                        Open Menu
+                                    </Button>
+                                    <Menu {...bindMenu(popupState)}>
+                                        <MenuItem onClick={popupState.close}>Cake</MenuItem>
+                                        <MenuItem onClick={popupState.close}>Death</MenuItem>
+                                    </Menu>
+                                </React.Fragment>
+                            )}
+                        </PopupState>
                     </Grid>
                     <Grid item xs={12} sm={6} direction="row" justify="flex-end" alignItems="center">
                         <Button className={classes.authButton} color="primary" variant="outlined" href="#outlined-buttons" startIcon={<ExitToAppIcon />}>Autentificare</Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}>xs=12</Paper>
+                        <Typography component="div">
+                            <div className={classes.primariaAndSymbol}>
+                                <Avatar alt="Remy Sharp" src={{primariaSign}} />
+                                <Box textAlign="center" fontSize={30} m={1}>Primaria Ciorescu</Box>
+                            </div>
+                            <Box textAlign="center" >Portalul serviciilor primariei</Box>
+                        </Typography>
                     </Grid>
 
                     <Grid className={classes.gridButtons} item xs={12} >
