@@ -10,10 +10,12 @@ import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles(theme => ({
     footer: {
-        backgroundColor: theme.palette.common.arcBlue,
+        //backgroundColor: theme.palette.common.arcBlue,
         width: '100%',
         zIndex: 1302,
-        position: 'relative'
+        position: 'relative',
+        backgroundColor: '#41403c'
+
     },
     adorment: {
         width: '25em',

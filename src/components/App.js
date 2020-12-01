@@ -16,7 +16,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: '#de3f0d',
+        backgroundColor: '#ffffff',
     },
 
 }));
@@ -31,7 +31,7 @@ function App() {
             <Grid container direction="column" >
                 <Grid item container>
                     <Grid className={classes.root} item xs={0} sm={2} />
-                    <Grid item xs={12} sm={8}>
+                    <Grid item xs={12} sm={8} style={{border: 'solid 1px #707070'}}>
 
                         <BrowserRouter>
                             <Header value={value} setValue={setValue}/>

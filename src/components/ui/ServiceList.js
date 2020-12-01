@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+//import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
+import CardImage from '../../assets/png/1.1.png';
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
     },
     cardGrid: {
-        backgroundColor: '#de28e3',
+        backgroundImage: 'linear-gradient(to bottom, #faf4f2, rgba(250, 238, 233, 0) 32%, #fae0d7)',
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
     },
@@ -30,9 +31,13 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
+        borderRadius: '20px'
     },
     cardMedia: {
         paddingTop: '56.25%', // 16:9
+        backgroundSize: '4rem',
+        backgroundPosition: '50% 80%',
+
     },
     cardContent: {
         flexGrow: 1,
@@ -54,37 +59,36 @@ export default function ServiceList() {
             <Container className={classes.cardGrid}>
                 {/* End hero unit */}
                 <Grid container spacing={4}>
-                    <Grid item xs={12}><Box textAlign="center" fontSize={30}>Verificati toate serviciile</Box></Grid>
+                    <Grid item xs={12}>
+                        <Typography gutterBottom variant="h5" component="h2" >
+                            <Box textAlign="center" fontSize={30}>Verificati toate serviciile</Box>
+                        </Typography>
+                    </Grid>
+
                     {cards.map((card) => (
                         <Grid item key={card} xs={12} sm={6} md={3}>
                             <Card className={classes.card}>
                                 <CardMedia
                                     className={classes.cardMedia}
-                                    image="https://source.unsplash.com/random"
+                                    image={CardImage}
                                     title="Image title"
                                 />
                                 <CardContent className={classes.cardContent}>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                            Heading
+                                    <Typography gutterBottom variant="h5" component="h2" >
+                                        <Box textAlign="center">
+                                            <Link href="/" onClick={() => {console.info('I\'m a button.');}} color="inherit">
+                                                Denumirea Serviciului
+                                            </Link>
+                                        </Box>
                                     </Typography>
                                     <Typography>
-                                            This is a media card. You can use this section to describe the content.
+                                        <Box textAlign="center">
+                                            <Link href="#" onClick={() => {console.info('I\'m a button.');}} color="inherit" variant="body2">
+                                                Descrierea Serviciului
+                                            </Link>
+                                        </Box>
                                     </Typography>
                                 </CardContent>
-                                <CardActions>
-                                    <Typography className={classes.root}>
-                                        <Link href="#" onClick={() => {
-                                            console.info('I\'m a button.');
-                                        }} color="inherit">
-                                            Some text
-                                        </Link>
-                                        <Link href="#" onClick={() => {
-                                            console.info('I\'m a button.');
-                                        }} color="inherit" variant="body2">
-                                            Some more strange text
-                                        </Link>
-                                    </Typography>
-                                </CardActions>
                             </Card>
                         </Grid>
                     ))}

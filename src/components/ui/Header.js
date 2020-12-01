@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         minWidth: 300,
         backgroundImage: `url(${headerBgImage})`,
         backgroundSize: '100% 100%',
-        backgroundColor: '#2c3503',
+        backgroundColor: '#faf4f2',
         backgroundRepeat: 'no-repeat',
         direction: 'row',
         justify: 'center',
