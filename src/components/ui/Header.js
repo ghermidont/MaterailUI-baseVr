@@ -7,13 +7,12 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Box from '@material-ui/core/Box';
 import headerBgImage from '../../assets/png/headerBackgroung.png';
 import button1BgImage from '../../assets/png/1.1.png';
-import primariaSign from '../../assets/png/5.1.png';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 //https://github.com/jcoreio/material-ui-popup-state
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
+import primariaHeraldica from '../../assets/png/5.1.png';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -37,6 +36,12 @@ const useStyles = makeStyles(theme => ({
         display: 'block',
         textAlign: 'center'
     },
+    icon: {
+        width: '1.5em',
+        [theme.breakpoints.down('xs')]: {
+            width: '2em'
+        },
+    },
     buttons: {
         margin: theme.spacing(1),
         backgroundSize: '1.5rem',
@@ -50,6 +55,7 @@ const useStyles = makeStyles(theme => ({
         border: 'solid #337FED 0',
         textAlign: 'center',
         backgroundRepeat: 'no-repeat',
+        top: 20
         //margin: '9rem 1rem 10rem 0rem',
     },
     authButton:{
@@ -106,7 +112,7 @@ export default function Header() {
                     <Grid item xs={12}>
                         <Typography component="div">
                             <div className={classes.primariaAndSymbol}>
-                                <Avatar alt="Remy Sharp" src={{primariaSign}} />
+                                <img src={primariaHeraldica} alt="photo" className={classes.icon}/>
                                 <Box textAlign="center" fontSize={30} m={1}>Primaria Ciorescu</Box>
                             </div>
                             <Box textAlign="center" >Portalul serviciilor primariei</Box>

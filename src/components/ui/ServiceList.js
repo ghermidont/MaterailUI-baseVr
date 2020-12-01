@@ -61,7 +61,7 @@ export default function ServiceList() {
                 <Grid container spacing={4}>
                     <Grid item xs={12}>
                         <Typography gutterBottom variant="h5" component="h2" >
-                            <Box textAlign="center" fontSize={30}>Verificati toate serviciile</Box>
+                            <Box textAlign="center" fontSize={30}>Verificati toate<br />serviciile</Box>
                         </Typography>
                     </Grid>
 

@@ -6,16 +6,19 @@ import facebook from '../../assets/facebook.svg';
 import twitter from '../../assets/twitter.svg';
 import insta from '../../assets/instagram.svg';
 import Grid from '@material-ui/core/Grid';
+import footerBackground from '../../assets/png/footerBackgroung.png';
+import headerBgImage from '../../assets/png/headerBackgroung.png';
+import {Box} from '@material-ui/core';
 //import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles(theme => ({
     footer: {
-        //backgroundColor: theme.palette.common.arcBlue,
         width: '100%',
-        //zIndex: 1302,
         position: 'relative',
-        backgroundColor: '#41403c'
-
+        backgroundImage: `url(${footerBackground})`,
+        backgroundSize: '100% 100%',
+        backgroundColor: '#faf4f2',
+        backgroundRepeat: 'no-repeat',
     },
     adorment: {
         width: '25em',
@@ -27,9 +30,6 @@ const useStyles = makeStyles(theme => ({
             width: '15em'
         },
     },
-    //mainContainer: {
-    //position: 'absolute'
-    //},
     link: {
         color: 'white',
         fontFamily: 'Arial',
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
         margin: '3em'
     },
     icon: {
-        width: '4em',
+        width: '1.5em',
         [theme.breakpoints.down('xs')]: {
             width: '2em'
         },
@@ -62,19 +62,17 @@ export default function Footer() {
     const classes = useStyles();
 
     // eslint-disable-next-line react/prop-types
-    //const {setValue} = props;
-
 
     return (
         <footer className={classes.footer}>
             <Grid container justify='center'>
-                <Grid item className={classes.gridItem}>
-
+                <Grid xs={4} item className={classes.gridItem}>
+                    <Box>Address: or. Ciorescu, str. Macaroane cu cirnat nr. 7</Box>
                 </Grid>
-                <Grid item className={classes.gridItem}>
-
+                <Grid xs={4} item className={classes.gridItem}>
+                    <Box>Linkuri utile</Box>
                 </Grid>
-                <Grid item className={classes.gridItem}>
+                <Grid item xs={4} className={classes.gridItem}>
                     <Grid container justify='flex-end' spacing={2} className={classes.socialContainer}>
                         <Grid item component={'a'} href='http://www.mail.ru' rel='noreferrer noopener' target="_blank">
                             <img src={facebook} alt="photo" className={classes.icon}/> </Grid>
