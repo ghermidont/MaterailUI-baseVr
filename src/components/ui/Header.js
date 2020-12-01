@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
         minWidth: 300,
         backgroundImage: `url(${headerBgImage})`,
         backgroundSize: '100% 100%',
-        backgroundColor: '#faf4f2',
+        backgroundColor: '#fae0d7',
         backgroundRepeat: 'no-repeat',
         direction: 'row',
         justify: 'center',
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center'
     },
     icon: {
-        width: '1.5em',
+        width: '3em',
         [theme.breakpoints.down('xs')]: {
             width: '2em'
         },
@@ -62,6 +62,10 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '20px',
         float: 'right',
         color: 'white'
+    },
+    topLeftButton:{
+        top: 5,
+        left: 5, 
     },
     button1: {
         backgroundImage: `url(${button1BgImage})`,
@@ -95,7 +99,7 @@ export default function Header() {
                         <PopupState variant="popover" popupId="demo-popup-menu">
                             {(popupState) => (
                                 <React.Fragment>
-                                    <Button variant="contained" color="primary" {...bindTrigger(popupState)}>
+                                    <Button className={classes.topLeftButton} variant="contained" {...bindTrigger(popupState)}>
                                         Open Menu
                                     </Button>
                                     <Menu {...bindMenu(popupState)}>
@@ -113,9 +117,9 @@ export default function Header() {
                         <Typography component="div">
                             <div className={classes.primariaAndSymbol}>
                                 <img src={primariaHeraldica} alt="photo" className={classes.icon}/>
-                                <Box textAlign="center" fontSize={30} m={1}>Primaria Ciorescu</Box>
+                                <Box color="white" fontWeight={500} textAlign="center" fontSize={50} m={1}>Primaria Ciorescu</Box>
                             </div>
-                            <Box textAlign="center" >Portalul serviciilor primariei</Box>
+                            <Box color="white" textAlign="center" >Portalul serviciilor primariei</Box>
                         </Typography>
                     </Grid>
 

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
     },
     cardGrid: {
-        backgroundImage: 'linear-gradient(to bottom, #faf4f2, rgba(250, 238, 233, 0) 32%, #fae0d7)',
+        backgroundImage: 'linear-gradient(to top, #faf4f2, rgba(250, 238, 233, 0) 32%, #fae0d7)',
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
     },
@@ -31,7 +31,9 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        borderRadius: '20px'
+        borderRadius: '20px',
+        backgroundColor: '#e1dfd6',
+
     },
     cardMedia: {
         paddingTop: '56.25%', // 16:9
@@ -61,7 +63,7 @@ export default function ServiceList() {
                 <Grid container spacing={4}>
                     <Grid item xs={12}>
                         <Typography gutterBottom variant="h5" component="h2" >
-                            <Box textAlign="center" fontSize={30}>Verificati toate<br />serviciile</Box>
+                            <Box fontWeight={500} textAlign="center" fontSize={30}>Verificati toate<br />serviciile</Box>
                         </Typography>
                     </Grid>
 
@@ -75,7 +77,7 @@ export default function ServiceList() {
                                 />
                                 <CardContent className={classes.cardContent}>
                                     <Typography gutterBottom variant="h5" component="h2" >
-                                        <Box textAlign="center">
+                                        <Box fontWeight={500} textAlign="center">
                                             <Link href="/" onClick={() => {console.info('I\'m a button.');}} color="inherit">
                                                 Denumirea Serviciului
                                             </Link>
