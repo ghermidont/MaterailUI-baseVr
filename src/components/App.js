@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {ThemeProvider} from '@material-ui/styles';
 import {BrowserRouter} from 'react-router-dom';
 import {Route, Switch} from 'react-router';
-import Header from './ui/Header';
+import Header from './ui/header/Header';
 import theme from './ui/Theme';
 import Footer from './ui/Footer';
 import SignIn from './ui/SignIn';
@@ -14,7 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core/styles';
 
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         backgroundColor: '#ffffff',
     },
