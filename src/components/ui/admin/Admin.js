@@ -6,6 +6,9 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import {Link} from 'react-router-dom';
 import PaymentForm from '../CheckOutForm/PaymentForm';
 import {Copyright} from '@material-ui/icons';
+import Roluri from './roluri/Roles';
+import Roles from './roluri/Roles';
+import ElectronicServices from './servicii/ElectronicServices';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,18 +27,12 @@ export default function Admin(props) {
         setValue(newValue);
     };
 
-    if (value === 0) {
-        tmp = <PaymentForm/>;
-    } else {
-        tmp = <Copyright/>;
-    }
-
     switch (value) {
     case 0:
-        tmp = <PaymentForm/>;
+        tmp = <Roles/>;
         break;
     case 1:
-        tmp = <Copyright/>;
+        tmp = <ElectronicServices/>;
         break;
     case 2:
         tmp = <PaymentForm/>;

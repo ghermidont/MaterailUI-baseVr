@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     },
     topLeftButton:{
         top: 5,
-        left: 5, 
+        left: 5,
     },
     button1: {
         backgroundImage: `url(${button1BgImage})`,
@@ -156,7 +156,6 @@ export default function Header({role}) {
                     <Grid item xs={12} sm={6} direction="row" justify="flex-end" alignItems="center">
                         {loginLogout}
                         {adminOrNot}
-                        <Button className={classes.authButton} color="primary" variant="outlined" href="#outlined-buttons" startIcon={<ExitToAppIcon />}>Autentificare</Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography component="div">

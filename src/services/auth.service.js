@@ -1,8 +1,7 @@
 import axios from 'axios';
+import Constants from './constants';
 
-//const API_URL = 'https://localhost:5001/api/auth/';
-const API_URL = 'https://d3d6bc7f-ab29-4061-86af-8ed2a1f047bf.mock.pstmn.io/api/auth/';
-//const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = Constants.API_URL+'api/auth/';
 
 const register = (Email, Password, ConfirmPassword) => {
     return axios.post(API_URL + 'register', {
