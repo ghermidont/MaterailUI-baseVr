@@ -7,8 +7,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Box from '@material-ui/core/Box';
 import headerBgImage from '../../../assets/png/headerBackgroung.png';
 import button1BgImage from '../../../assets/png/1.1.png';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+//import Menu from '@material-ui/core/Menu';
+//import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 //https://github.com/jcoreio/material-ui-popup-state
 import Typography from '@material-ui/core/Typography';
@@ -16,6 +16,7 @@ import primariaHeraldica from '../../../assets/png/5.1.png';
 import DialogHeader from './DialogHeader';
 import {Link} from 'react-router-dom';
 import AuthService from '../../../services/auth.service';
+import CountrySelect from './primariasMenu';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -66,10 +67,10 @@ const useStyles = makeStyles(theme => ({
         float: 'right',
         color: 'white'
     },
-    topLeftButton:{
-        top: 5,
-        left: 5,
-    },
+    //topLeftMenu:{
+    //    top: 30,
+    //    left: 10,
+    // },
     button1: {
         backgroundImage: `url(${button1BgImage})`,
     },
@@ -139,19 +140,7 @@ export default function Header({role}) {
             <div className={classes.root}>
                 <Grid container spacing={3} direction="row" justify="center" alignItems="center">
                     <Grid item xs={12} sm={6}>
-                        <PopupState variant="popover" popupId="demo-popup-menu">
-                            {(popupState) => (
-                                <React.Fragment>
-                                    <Button className={classes.topLeftButton} variant="contained" {...bindTrigger(popupState)}>
-                                        Open Menu
-                                    </Button>
-                                    <Menu {...bindMenu(popupState)}>
-                                        <MenuItem onClick={popupState.close}>Cake</MenuItem>
-                                        <MenuItem onClick={popupState.close}>Death</MenuItem>
-                                    </Menu>
-                                </React.Fragment>
-                            )}
-                        </PopupState>
+                        <CountrySelect />
                     </Grid>
                     <Grid item xs={12} sm={6} direction="row" justify="flex-end" alignItems="center">
                         {loginLogout}

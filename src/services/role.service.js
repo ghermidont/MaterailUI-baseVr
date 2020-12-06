@@ -1,5 +1,5 @@
 import axios from 'axios';
-import authHeader from './auth-header';
+//import authHeader from './auth-header';
 import Constants from './constants';
 
 const API_URL = Constants.API_URL + 'api/Administration/';
