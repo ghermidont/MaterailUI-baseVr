@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router';
 import Header from './ui/header/Header';
 import theme from './ui/Theme';
 import Footer from './ui/Footer';
-import SignIn from './ui/SignIn';
+//import SignIn from './ui/SignIn';
 import SignUp from './ui/SignUp';
 import servicesList from './ui/ServiceList';
 import Checkout from './ui/CheckOutForm/Checkout';
@@ -51,7 +51,7 @@ function App() {
                             <Switch>
                                 <Route exact path='/' component={servicesList}/>
                                 <Route exact path='/admin' component={Admin}/>
-                                <Route exact path='/signin' component={SignIn}/>
+
                                 <Route exact path='/signup' component={SignUp}/>
                                 <Route exact path='/pay' component={Checkout}/>Checkout
                             </Switch>
