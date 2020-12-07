@@ -24,9 +24,9 @@ export default function Roles(props) {
     });
 
     return (
-        <Grid container direction='column'>
-            <Grid container justify='center'>
-                <Typography variant="h4"  noWrap>
+        <Grid container direction='column' style={{height:600}}>
+            <Grid container justify='center' >
+                <Typography variant="h4"  noWrap style={{marginTop:50}}>
                     Roluri disponibile
                 </Typography>
             </Grid>

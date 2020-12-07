@@ -1,5 +1,4 @@
 import axios from 'axios';
-//import authHeader from './auth-header';
 import Constants from './constants';
 
 const API_URL = Constants.API_URL + 'api/Eservice/';
@@ -8,11 +7,17 @@ const getListElectronicService = () => {
     return axios.get(API_URL);
 };
 
-const getUsersByRole = (param) => {
-    return axios.get(API_URL + 'GetUsersByRole', {
-        params: {
-            roleName: param
-        }});
+const postNewElectronicService = (x) => {
+    return axios.post(API_URL, {
+        name: x.Denumire,
+        amount: x.Suma,
+        treasureAccount: x.ContTrez,
+        details: x.Descriere
+    });
+};
+
+const deleteElectronicService = (param) => {
+    return axios.delete(API_URL + `${param}`);
 };
 
 const getUserByEmail = (param1, param2) => {
@@ -20,18 +25,13 @@ const getUserByEmail = (param1, param2) => {
         params: {
             userEmail: param1,
             roleName: param2
-        }});
-};
-
-const postToggleUserCityHallAdminRole = (UserEmail, Add) => {
-    return axios.post(API_URL + 'ToggleUserCityHallAdminRole', {
-        UserEmail,
-        Add
+        }
     });
 };
 
 
 export default {
     getListElectronicService,
-
+    postNewElectronicService,
+    deleteElectronicService
 };

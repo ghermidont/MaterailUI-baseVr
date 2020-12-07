@@ -9,7 +9,7 @@ import headerBgImage from '../../../assets/png/headerBackgroung.png';
 import button1BgImage from '../../../assets/png/1.1.png';
 //import Menu from '@material-ui/core/Menu';
 //import MenuItem from '@material-ui/core/MenuItem';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+//import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 //https://github.com/jcoreio/material-ui-popup-state
 import Typography from '@material-ui/core/Typography';
 import primariaHeraldica from '../../../assets/png/5.1.png';
@@ -20,11 +20,13 @@ import CountrySelect from './primariasMenu';
 
 const useStyles = makeStyles(theme => ({
     root: {
+        position: 'sticky',
+        // top MUST be specified in order sticky to work
+        top: 0,
         flexGrow: 1,
-        minWidth: 300,
+        minWidth: 500,
         backgroundImage: `url(${headerBgImage})`,
         backgroundSize: '100% 100%',
-        backgroundColor: '#fae0d7',
         backgroundRepeat: 'no-repeat',
         direction: 'row',
         justify: 'center',
@@ -60,17 +62,12 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
         backgroundRepeat: 'no-repeat',
         top: 20
-        //margin: '9rem 1rem 10rem 0rem',
     },
     authButton:{
         borderRadius: '20px',
         float: 'right',
         color: 'white'
     },
-    //topLeftMenu:{
-    //    top: 30,
-    //    left: 10,
-    // },
     button1: {
         backgroundImage: `url(${button1BgImage})`,
     },
@@ -152,7 +149,7 @@ export default function Header({role}) {
                                 <img src={primariaHeraldica} alt="photo" className={classes.icon}/>
                                 <Box color="white" fontWeight={500} textAlign="center" fontSize={50} m={1}>Primaria Ciorescu</Box>
                             </div>
-                            <Box color="white" textAlign="center" >Portalul serviciilor primariei</Box>
+                            <Box color="white" textAlign="center">Portalul serviciilor primariei</Box>
                         </Typography>
                     </Grid>
 

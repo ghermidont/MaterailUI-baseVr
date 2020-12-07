@@ -5,8 +5,8 @@ import Tab from '@material-ui/core/Tab';
 import makeStyles from '@material-ui/styles/makeStyles';
 import {Link} from 'react-router-dom';
 import PaymentForm from '../CheckOutForm/PaymentForm';
-import {Copyright} from '@material-ui/icons';
-import Roluri from './roluri/Roles';
+//import {Copyright} from '@material-ui/icons';
+//import Roluri from './roluri/Roles';
 import Roles from './roluri/Roles';
 import ElectronicServices from './servicii/ElectronicServices';
 

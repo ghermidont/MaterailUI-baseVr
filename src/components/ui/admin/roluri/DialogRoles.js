@@ -43,7 +43,7 @@ export default function DialogRoles({open, setOpen, role, edit, setEdit}) {
             onClose={() => {
                 setOpen(false), setEdit(false);
             }}
-            maxWidth
+            maxWidth={'lg'}
         >
             <DialogContent style={{height: 600}}>
                 <div style={{height: 300, width: 700}}>
