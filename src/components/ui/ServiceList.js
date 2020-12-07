@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
     },
     cardGrid: {
-        backgroundImage: 'linear-gradient(to top, #faf4f2, rgba(250, 238, 233, 0) 32%, #fae0d7)',
+        //backgroundImage: 'linear-gradient(to top, #faf4f2, rgba(250, 238, 233, 0) 32%, #fae0d7)',
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
     },
@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         borderRadius: '20px',
         backgroundColor: '#e1dfd6',
+        '&:hover': {
+            background: '#cccbc4'
+        },
 
     },
     cardMedia: {
