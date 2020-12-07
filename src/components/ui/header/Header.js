@@ -7,23 +7,26 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Box from '@material-ui/core/Box';
 import headerBgImage from '../../../assets/png/headerBackgroung.png';
 import button1BgImage from '../../../assets/png/1.1.png';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+//import Menu from '@material-ui/core/Menu';
+//import MenuItem from '@material-ui/core/MenuItem';
+//import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 //https://github.com/jcoreio/material-ui-popup-state
 import Typography from '@material-ui/core/Typography';
 import primariaHeraldica from '../../../assets/png/5.1.png';
 import DialogHeader from './DialogHeader';
 import {Link} from 'react-router-dom';
 import AuthService from '../../../services/auth.service';
+import CountrySelect from './primariasMenu';
 
 const useStyles = makeStyles(theme => ({
     root: {
+        position: 'sticky',
+        // top MUST be specified in order sticky to work
+        top: 0,
         flexGrow: 1,
-        minWidth: 300,
+        minWidth: 500,
         backgroundImage: `url(${headerBgImage})`,
         backgroundSize: '100% 100%',
-        backgroundColor: '#fae0d7',
         backgroundRepeat: 'no-repeat',
         direction: 'row',
         justify: 'center',
@@ -59,16 +62,11 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
         backgroundRepeat: 'no-repeat',
         top: 20
-        //margin: '9rem 1rem 10rem 0rem',
     },
     authButton:{
         borderRadius: '20px',
         float: 'right',
         color: 'white'
-    },
-    topLeftButton:{
-        top: 5,
-        left: 5,
     },
     button1: {
         backgroundImage: `url(${button1BgImage})`,
@@ -139,19 +137,7 @@ export default function Header({role}) {
             <div className={classes.root}>
                 <Grid container spacing={3} direction="row" justify="center" alignItems="center">
                     <Grid item xs={12} sm={6}>
-                        <PopupState variant="popover" popupId="demo-popup-menu">
-                            {(popupState) => (
-                                <React.Fragment>
-                                    <Button className={classes.topLeftButton} variant="contained" {...bindTrigger(popupState)}>
-                                        Open Menu
-                                    </Button>
-                                    <Menu {...bindMenu(popupState)}>
-                                        <MenuItem onClick={popupState.close}>Cake</MenuItem>
-                                        <MenuItem onClick={popupState.close}>Death</MenuItem>
-                                    </Menu>
-                                </React.Fragment>
-                            )}
-                        </PopupState>
+                        <CountrySelect />
                     </Grid>
                     <Grid item xs={12} sm={6} direction="row" justify="flex-end" alignItems="center">
                         {loginLogout}
@@ -163,7 +149,7 @@ export default function Header({role}) {
                                 <img src={primariaHeraldica} alt="photo" className={classes.icon}/>
                                 <Box color="white" fontWeight={500} textAlign="center" fontSize={50} m={1}>Primaria Ciorescu</Box>
                             </div>
-                            <Box color="white" textAlign="center" >Portalul serviciilor primariei</Box>
+                            <Box color="white" textAlign="center">Portalul serviciilor primariei</Box>
                         </Typography>
                     </Grid>
 

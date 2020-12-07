@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import * as _ from '@material-ui/data-grid';
 import {DataGrid} from '@material-ui/data-grid';
-import ElectronicService from '../../../../../../../WebstormProjects/MaterailUI-baseVr/src/services/electronicService.service';
+import ElectronicService from '../../../../services/electronicService.service';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
