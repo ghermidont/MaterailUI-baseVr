@@ -7,6 +7,10 @@ const getListElectronicService = () => {
     return axios.get(API_URL);
 };
 
+const getElectronicServiceById = (param) => {
+    return axios.get(API_URL + `${param}`);
+};
+
 const postNewElectronicService = (x) => {
     return axios.post(API_URL, {
         name: x.Denumire,
@@ -33,5 +37,6 @@ const getUserByEmail = (param1, param2) => {
 export default {
     getListElectronicService,
     postNewElectronicService,
-    deleteElectronicService
+    deleteElectronicService,
+    getElectronicServiceById
 };

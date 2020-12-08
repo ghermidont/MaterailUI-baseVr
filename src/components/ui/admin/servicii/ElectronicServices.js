@@ -87,7 +87,7 @@ export default function ElectronicServices(props) {
                     <AddElectronicService setTriggerRow={setTriggerRow}/>
                 </Grid>
             </Grid>
-            <DialogElectronicService open={open} setOpen={setOpen} id={id}/>
+            <DialogElectronicService open={open} setOpen={setOpen} id={id} setId={setId}/>
         </>
     );
 }
