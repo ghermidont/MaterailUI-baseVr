@@ -21,7 +21,8 @@ function Copyright() {
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Your Website
+                {/* eslint-disable-next-line */}
+               Vasea&apos;s site! Do not touch it!
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -85,86 +86,95 @@ export default function DialogHeader({open, setOpen}) {
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
                     <div className={classes.paper}>
-                        <Avatar className={classes.avatar}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign in
+                        <Typography component="h1" variant="h5" >
+                            Înregistrare
                         </Typography>
                         <form className={classes.form} noValidate>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                value={email}
-                                onChange={e=>setEmail(e.target.value)}
-                                autoFocus
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                value={password}
-                                onChange={e=>setPassword(e.target.value)}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
-                            <Grid
-                                item
-                                container
-                                style={{marginTop: '2em'}}
-                                alignItems="center"
-                            >
-
-                           
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                    onClick={handleLogin}
-                                >
-                                Sign In
-                                </Button>
-                                <Grid item>
-                                    <Button
-                                        style={{fontWeight: 300}}
-                                        color="primary"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                    Cancel
-                                    </Button>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        autoComplete="fname"
+                                        name="firstName"
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="firstName"
+                                        label="Nume, prenume sau denumirea plăților"
+                                        autoFocus
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="lastName"
+                                        label="IDNP/IDNO-ul platitorului"
+                                        name="lastName"
+                                        autoComplete="lname"
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormControlLabel
+                                        control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                        label="Persoană fizică"
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormControlLabel
+                                        control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                        label="Persoană juridică"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Adresă email"
+                                        name="email"
+                                        autoComplete="email"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="current-password"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <FormControlLabel
+                                        control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                        label="Vreau să recepționez notificări privind serviciile noi"
+                                    />
                                 </Grid>
                             </Grid>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                            >
+                                Sign Up
+                            </Button>
+                            <Grid container justify="flex-end">
                                 <Grid item>
                                     <Link href="#" variant="body2">
-                                        {'Don\'t have an account? Sign Up'}
+                                        Deja aveți un cont? Autentificați-vă
                                     </Link>
                                 </Grid>
                             </Grid>
                         </form>
                     </div>
-                    <Box mt={8}>
+                    <Box mt={5}>
                         <Copyright />
                     </Box>
                 </Container>
