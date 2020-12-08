@@ -89,6 +89,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+//The array will be filed with items from the database
+const buttons = [1, 2, 3, 4, 5];
+const randomNumb = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+};
+
 export default function Header({role}) {
     const classes = useStyles();
     // eslint-disable-next-line react/prop-types
@@ -155,12 +163,9 @@ export default function Header({role}) {
                     </Grid>
 
                     <Grid className={classes.gridButtons} item xs={12} >
-                        <Button className={classNames(classes.buttons, classes.button1)} variant="contained">Certificat de Urbanism</Button>
-                        <Button className={classNames(classes.buttons, classes.button2)} variant="contained">Reserve city tour</Button>
-                        <Button className={classNames(classes.buttons, classes.button3)} variant="contained">Obtain permits</Button>
-                        <Button className={classNames(classes.buttons, classes.button4)} variant="contained">Find the best</Button>
-                        <Button className={classNames(classes.buttons, classes.button5)} variant="contained">Return to you</Button>
-                        <Button className={classNames(classes.buttons, classes.button6)} variant="contained">Reserve tours</Button>
+                        {buttons.map((card) => (
+                            <Button key={card} className={classNames(classes.buttons)} variant="contained">Service name from the DB</Button>
+                        ))}
                     </Grid>
                 </Grid>
             </div>

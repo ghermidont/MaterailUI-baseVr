@@ -25,7 +25,7 @@ export default function ElectronicServices(props) {
                 console.log(pageNr);
             }
         );
-    }, [triggerRow]);
+    }, );
 
     const columns = [
         {field: 'id', headerName: 'Id', width: 0,},
