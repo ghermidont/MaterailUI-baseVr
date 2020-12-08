@@ -8,6 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddElectronicService from './AddElectronicService';
 import DialogElectronicService from './DialogElectronicService';
+import * as yup from 'yup';
 
 
 const gridSortModel = [
@@ -16,6 +17,13 @@ const gridSortModel = [
         sort: 'desc'// as SortDirection,
     },
 ];
+
+const schema = yup.object().shape({
+    Denumire: yup.string().min(5).max(450).required(),
+    Etichet: yup.string().min(5).max(200).required(),
+    ContTrez: yup.string().min(3).min(5).max(15).required(),
+    Suma: yup.number().positive().lessThan(1000).required(),
+});
 
 export default function ElectronicServices(props) {
     const [rows, setRows] = useState([]);
@@ -84,10 +92,10 @@ export default function ElectronicServices(props) {
                     </div>
                 </Grid>
                 <Grid container justify={'center'}>
-                    <AddElectronicService setTriggerRow={setTriggerRow}/>
+                    <AddElectronicService setTriggerRow={setTriggerRow} schema={schema}/>
                 </Grid>
             </Grid>
-            <DialogElectronicService open={open} setOpen={setOpen} id={id} setId={setId}/>
+            <DialogElectronicService open={open} setOpen={setOpen} id={id} setId={setId} schema={schema} setTriggerRow={setTriggerRow} />
         </>
     );
 }

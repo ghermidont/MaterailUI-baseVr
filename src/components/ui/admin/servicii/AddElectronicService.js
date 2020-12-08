@@ -7,12 +7,7 @@ import {Button, InputAdornment, OutlinedInput, TextField} from '@material-ui/cor
 import React from 'react';
 
 
-export default function AddElectronicService({setTriggerRow}) {
-    const schema = yup.object().shape({
-        Denumire: yup.string().min(5).max(450).required(),
-        ContTrez: yup.string().min(3).min(5).max(15).required(),
-        Suma: yup.number().positive().lessThan(1000).required(),
-    });
+export default function AddElectronicService({setTriggerRow, schema}) {
 
     const {register, handleSubmit, errors, reset} = useForm({
         resolver: yupResolver(schema)
@@ -32,6 +27,18 @@ export default function AddElectronicService({setTriggerRow}) {
             <Grid container direction='column'>
                 <Grid container direction='column'>
                     <Grid item>
+                        <TextField
+                            id="Etichet"
+                            name="Etichet"
+                            label="Eticheta"
+                            variant="outlined"
+                            inputRef={register}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item style={{color: '#DB0B18'}}>{errors.Etichet?.message}</Grid>
+
+                    <Grid item style={{marginTop:10}} >
                         <TextField
                             id="Denumire"
                             name="Denumire"

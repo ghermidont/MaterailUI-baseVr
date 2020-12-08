@@ -16,13 +16,26 @@ const postNewElectronicService = (x) => {
         name: x.Denumire,
         amount: x.Suma,
         treasureAccount: x.ContTrez,
-        details: x.Descriere
+        details: x.Descriere,
+        label: x.Etichet
     });
 };
 
 const deleteElectronicService = (param) => {
     return axios.delete(API_URL + `${param}`);
 };
+
+const updateElectronicService = (param, x) => {
+    return axios.put(API_URL +`${param}`, {
+        name: x.Denumire,
+        amount: x.Suma,
+        treasureAccount: x.ContTrez,
+        details: x.Descriere,
+        label: x.Etichet
+    });
+};
+
+
 
 const getUserByEmail = (param1, param2) => {
     return axios.get(API_URL + 'GetUserByEmail', {
@@ -38,5 +51,6 @@ export default {
     getListElectronicService,
     postNewElectronicService,
     deleteElectronicService,
-    getElectronicServiceById
+    getElectronicServiceById,
+    updateElectronicService
 };
