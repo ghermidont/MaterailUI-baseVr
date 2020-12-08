@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import ServiceRole from '../../../../services/electronicService.service';
+import ServiceRole from '../../../../services/role.service';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import OutlinedCard from './Card';

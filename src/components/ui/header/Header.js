@@ -101,7 +101,7 @@ export default function Header({role}) {
             color="primary"
             variant="outlined"
             startIcon={<ExitToAppIcon/>}>
-            Admin </Button>
+            Panel Administrare </Button>
         :
         <Button
             component={Link}
