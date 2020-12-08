@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DialogHeader({open, setOpen}) {
+export default function RegisterDialogHeader({open, setOpen}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const classes = useStyles();
@@ -86,6 +86,9 @@ export default function DialogHeader({open, setOpen}) {
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
                     <div className={classes.paper}>
+                        <Avatar className={classes.avatar}>
+                            <LockOutlinedIcon />
+                        </Avatar>
                         <Typography component="h1" variant="h5" >
                             Înregistrare
                         </Typography>
@@ -99,6 +102,7 @@ export default function DialogHeader({open, setOpen}) {
                                         required
                                         fullWidth
                                         id="firstName"
+                                        defaultValue="Ion Rotaru"
                                         label="Nume, prenume sau denumirea plăților"
                                         autoFocus
                                     />
@@ -112,6 +116,7 @@ export default function DialogHeader({open, setOpen}) {
                                         label="IDNP/IDNO-ul platitorului"
                                         name="lastName"
                                         autoComplete="lname"
+                                        defaultValue="2002002128888"
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
@@ -135,6 +140,7 @@ export default function DialogHeader({open, setOpen}) {
                                         label="Adresă email"
                                         name="email"
                                         autoComplete="email"
+                                        defaultValue="abc@abc.com"
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -147,6 +153,8 @@ export default function DialogHeader({open, setOpen}) {
                                         type="password"
                                         id="password"
                                         autoComplete="current-password"
+                                        helperText="Minim 6 caractere."
+                                        defaultValue="password"
                                     />
                                 </Grid>
                                 <Grid item xs={12}>

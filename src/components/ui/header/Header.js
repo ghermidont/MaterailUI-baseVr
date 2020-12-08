@@ -13,7 +13,8 @@ import button1BgImage from '../../../assets/png/1.1.png';
 //https://github.com/jcoreio/material-ui-popup-state
 import Typography from '@material-ui/core/Typography';
 import primariaHeraldica from '../../../assets/png/5.1.png';
-import DialogHeader from './DialogHeader';
+//import RegisterDialogHeader from './RegisterDialogHeader';
+import LogInDialogHeader from './LogInDialogHeader';
 import {Link} from 'react-router-dom';
 import AuthService from '../../../services/auth.service';
 import CountrySelect from './primariasMenu';
@@ -147,9 +148,9 @@ export default function Header({role}) {
                         <Typography component="div">
                             <div className={classes.primariaAndSymbol}>
                                 <img src={primariaHeraldica} alt="photo" className={classes.icon}/>
-                                <Box color="white" fontWeight={500} textAlign="center" fontSize={50} m={1}>Primaria Ciorescu</Box>
+                                <Box color="white" fontWeight={500} textAlign="center" fontSize={50} m={1}>Primăria Ciorescu</Box>
                             </div>
-                            <Box color="white" textAlign="center">Portalul serviciilor primariei</Box>
+                            <Box color="white" textAlign="center">Portalul serviciilor primăriei</Box>
                         </Typography>
                     </Grid>
 
@@ -163,7 +164,8 @@ export default function Header({role}) {
                     </Grid>
                 </Grid>
             </div>
-            <DialogHeader open={open} setOpen={setOpen}/>
+            {/*<RegisterDialogHeader open={open} setOpen={setOpen}/>*/}
+            <LogInDialogHeader open={open} setOpen={setOpen}/>
         </React.Fragment>
     );
 }

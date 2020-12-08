@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DialogHeader({open, setOpen}) {
+export default function LogInDialogHeader({open, setOpen}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const classes = useStyles();
@@ -77,11 +77,7 @@ export default function DialogHeader({open, setOpen}) {
     };
 
     return (
-        <Dialog
-            style={{zIndex: 1302}}
-            open={open}
-            onClose={() => setOpen(false)}
-        >
+        <Dialog style={{zIndex: 1302}} open={open} onClose={() => setOpen(false)}>
             <DialogContent>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
@@ -90,77 +86,26 @@ export default function DialogHeader({open, setOpen}) {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign in
+                            Autentificare
                         </Typography>
                         <form className={classes.form} noValidate>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                value={email}
-                                onChange={e=>setEmail(e.target.value)}
-                                autoFocus
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                value={password}
-                                onChange={e=>setPassword(e.target.value)}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
-                            <Grid
-                                item
-                                container
-                                style={{marginTop: '2em'}}
-                                alignItems="center"
-                            >
-
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                    onClick={handleLogin}
-                                >
-                                    Sign In
-                                </Button>
-                                <Grid item>
-                                    <Button
-                                        style={{fontWeight: 300}}
-                                        color="primary"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                        Cancel
-                                    </Button>
+                            <TextField variant="outlined" margin="normal" required fullWidth id="emailField" label="Pocita electrică" name="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} autoFocus/>
+                            <TextField variant="outlined" margin="normal" required fullWidth name="passwordField" label="Paroliu" type="password" id="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)}/>
+                            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Țâni-mă minti!"/>
+                            <Grid item container style={{marginTop: '2em'}} alignItems="center">
+                                <Grid item sx={6}>
+                                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleLogin}>Logare</Button>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Button style={{fontWeight: 300}} color="primary" onClick={() => setOpen(false)}>Anulare</Button>
                                 </Grid>
                             </Grid>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
+                                    <Link href="#" variant="body2">Ai uitat parola? Duti nafig!</Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {'Don\'t have an account? Sign Up'}
-                                    </Link>
+                                    <Link href="#" variant="body2">N-ai acaunt? Ap righestruieștiti!</Link>
                                 </Grid>
                             </Grid>
                         </form>
