@@ -9,6 +9,7 @@ import PaymentForm from '../CheckOutForm/PaymentForm';
 //import Roluri from './roluri/Roles';
 import Roles from './roluri/Roles';
 import ElectronicServices from './servicii/ElectronicServices';
+import CityHall from './primarii/CityHall';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,7 +36,7 @@ export default function Admin(props) {
         tmp = <ElectronicServices/>;
         break;
     case 2:
-        tmp = <PaymentForm/>;
+        tmp = <CityHall/>;
         break;
     }
     return (
