@@ -1,15 +1,11 @@
 import React from 'react';
-//import {Link} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
-//import footerAdorment from '../../assets/Footer Adornment.svg';
 import facebook from '../../assets/facebook.svg';
 import twitter from '../../assets/twitter.svg';
 import insta from '../../assets/instagram.svg';
 import Grid from '@material-ui/core/Grid';
-import footerBackground from '../../assets/png/footerBackgroung.png';
-import headerBgImage from '../../assets/png/headerBackgroung.png';
+import footerBackground from '../../assets/png/backgrounds/footerBackground.png';
 import {Box} from '@material-ui/core';
-//import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles(theme => ({
     footer: {
@@ -19,16 +15,6 @@ const useStyles = makeStyles(theme => ({
         backgroundSize: '100% 100%',
         backgroundColor: '#faf4f2',
         backgroundRepeat: 'no-repeat',
-    },
-    adorment: {
-        width: '25em',
-        verticalAlign: 'bottom',
-        [theme.breakpoints.down('md')]: {
-            width: '20em'
-        },
-        [theme.breakpoints.down('xs')]: {
-            width: '15em'
-        },
     },
     link: {
         color: 'white',
@@ -67,7 +53,7 @@ export default function Footer() {
         <footer className={classes.footer}>
             <Grid container justify='center'>
                 <Grid xs={4} item className={classes.gridItem}>
-                    <Box>Address: or. Ciorescu, str. Macaroane cu cirnat nr. 7</Box>
+                    <Box>Address: or. Ciorescu, str. Macaroane cu cârnaț nr. 7</Box>
                 </Grid>
                 <Grid xs={4} item className={classes.gridItem}>
                     <Box>Linkuri utile</Box>
