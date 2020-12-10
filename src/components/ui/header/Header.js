@@ -125,6 +125,7 @@ export default function Header({role}) {
                         {buttons.map((card) => (
                             <Button key={card} className={classNames(classes.buttons, classes.button)} variant="contained"  style={{backgroundImage: `url(${randomIconVar})`}}>Service name from the DB</Button>
                         ))}
+                        {console.log(randomIconVar)}
                     </Grid>
                 </Grid>
             </div>
