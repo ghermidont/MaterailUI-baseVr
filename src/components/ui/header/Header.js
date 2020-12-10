@@ -16,8 +16,8 @@ import icon4Small from '../../../assets/png/small/icon4Small.png';
 import Typography from '@material-ui/core/Typography';
 import heraldicaSmall from '../../../assets/png/small/heraldicaSmall.png';
 //app components import
-//import RegisterDialogHeader from './RegisterDialogHeader';
-import LogInDialogHeader from './LogInDialogHeader';
+import RegisterDialogHeader from './RegisterDialogHeader';
+//import LogInDialogHeader from './LogInDialogHeader';
 import AuthService from '../../../services/auth.service';
 import CountrySelect from './primariasMenu';
 
@@ -129,8 +129,8 @@ export default function Header({role}) {
                     </Grid>
                 </Grid>
             </div>
-            {/*<RegisterDialogHeader open={open} setOpen={setOpen}/>*/}
-            <LogInDialogHeader open={open} setOpen={setOpen}/>
+            <RegisterDialogHeader open={open} setOpen={setOpen}/>
+            {/*<LogInDialogHeader open={open} setOpen={setOpen}/>*/}
         </React.Fragment>
     );
 }

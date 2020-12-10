@@ -158,6 +158,45 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="Oras"
+                                        label="Oras"
+                                        id="Oras"
+                                        //autoComplete="current-password"
+                                        helperText="oras"
+                                        defaultValue="Cahul"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="CodPostal"
+                                        label="CodPostal"
+                                        id="CodPostal"
+                                        //autoComplete="current-password"
+                                        helperText="4 cifre"
+                                        defaultValue="2001"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="Adresa"
+                                        label="Adresa"
+                                        id="Adresa"
+                                        //autoComplete="current-password"
+                                        helperText="Minim 6 caractere."
+                                        defaultValue="str. Stefan cel Mare 100, sc. 3 ap 50"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
                                     <FormControlLabel
                                         control={<Checkbox value="allowExtraEmails" color="primary" />}
                                         label="Vreau să recepționez notificări privind serviciile noi"
