@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import {DataGrid} from '@material-ui/data-grid';
-import ElectronicService from '../../../../services/electronicService.service';
+import {useForm} from 'react-hook-form';
+import CityHallService from '../../../../services/cityHall.service';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import * as yup from 'yup';
-import {Accordion, AccordionDetails, AccordionSummary, Button, TextField} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import {Accordion, AccordionDetails, AccordionSummary, TextField} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {useForm} from 'react-hook-form';
+import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
-
+import {DataGrid} from '@material-ui/data-grid';
+import Button from '@material-ui/core/Button';
 
 const gridSortModel = [
     {
@@ -19,33 +19,39 @@ const gridSortModel = [
         sort: 'desc'// as SortDirection,
     },
 ];
-
 const schema = yup.object().shape({
     Name: yup.string().min(5).max(450).required(),
     City: yup.string().min(5).max(200).required(),
-    ContTrez: yup.string().min(3).min(5).max(15).required(),
-    Suma: yup.number().positive().lessThan(1000).required(),
+    PostalCode: yup.string().min(5).max(200).required(),
+    StreetHouseNumber: yup.string().min(5).max(200).required(),
+    Phone0: yup.string().min(6).max(15).required(),
+    Email0: yup.string().email().required(),
+    Email1: yup.string().email(),
+    Email2: yup.string().email()
 });
 
 export default function CityHall(props) {
+    const {register, handleSubmit, errors, reset} = useForm({
+        resolver: yupResolver(schema)
+    });
+
     const [rows, setRows] = useState([]);
-    const [triggerRow, setTriggerRow] = useState(0);
     const [open, setOpen] = useState(false);
     const [id, setId] = useState();
 
 
-    const {register, handleSubmit, setValue, errors, reset} = useForm({
-        resolver: yupResolver(schema)
-    });
-
-
     useEffect(() => {
-        ElectronicService.getListElectronicService().then(
+        CityHallService.getListCityHall().then(
             (response) => {
                 setRows(response.data);
             }
         );
-    }, [triggerRow]);
+    }, []);
+
+
+    const populateCityHallForm = (data) => {
+
+    };
 
     const columns = [
         {field: 'id', headerName: 'Id', width: 0,},
@@ -56,8 +62,9 @@ export default function CityHall(props) {
             // eslint-disable-next-line react/display-name
             renderCell: (z) => {
                 const onClick = () => {
-                    setOpen(true);
-                    setId(z.row.id);
+                    CityHallService.getCityHallById(z.row.id).then(
+                        x => populateCityHallForm(x.data)
+                    );
                 };
                 return (
                     <IconButton aria-label="edit" onClick={onClick}>
@@ -72,9 +79,9 @@ export default function CityHall(props) {
             // eslint-disable-next-line react/display-name
             renderCell: (z) => {
                 const onClick = () => {
-                    ElectronicService.deleteElectronicService(z.row.id);
-                    setTriggerRow((x) => x + 1);
-                    console.log(z.row.id);
+                    // ElectronicService.deleteElectronicService(z.row.id);
+                    // setTriggerRow((x) => x + 1);
+                    // console.log(z.row.id);
 
                 };
                 return (
@@ -87,15 +94,32 @@ export default function CityHall(props) {
     ];
     const onSubmit = data => {
         console.log(data);
-
-
+        const AddressContactCityHall1 = {
+            City: data.City,
+            StreetHouseNumber: data.StreetHouseNumber,
+            PostalCode: data.PostalCode,
+            Phone0: data.Phone0,
+            Phone1: data.Phone1,
+            Phone2: data.Phone2,
+            Email0: data.Email0,
+            Email1: data.Email1,
+            Email2: data.Email2,
+            Web0: data.Web0,
+            Web1: data.Web1,
+            Web2: data.Web2
+        };
+        console.log(AddressContactCityHall1);
+        const data1 = {
+            Name: data.Name,
+            BanckAccount: data.BanckAccount,
+            AddressContactCityHall: [AddressContactCityHall1]
+        };
+        console.log(data1);
     };
-
     return (
         <>
             <Grid container justify={'center'}>
                 <form onSubmit={handleSubmit(onSubmit)} style={{width: 700, marginTop: 40}}>
-
                     <Grid item direction='column'>
                         <Grid container justify='center'>
                             <Typography variant="h4" noWrap>
@@ -111,7 +135,7 @@ export default function CityHall(props) {
                         </Grid>
 
                         <Grid item container direction={'column'} style={{marginTop: 10}}>
-                            <Grid item direction='column'>
+                            <Grid item direction='column' style={{marginTop: 10}}>
                                 <Grid item>
                                     <TextField
                                         id="Name"
@@ -122,10 +146,10 @@ export default function CityHall(props) {
                                         fullWidth
                                     />
                                 </Grid>
-                                <Grid item style={{color: '#DB0B18'}}>{errors.ContTrez?.message}</Grid>
+                                <Grid item style={{color: '#DB0B18'}}>{errors.Name?.message}</Grid>
                             </Grid>
 
-                            <Grid container direction='row'>
+                            <Grid container direction='row' style={{marginTop: 10}}>
                                 <Grid item direction='column' style={{flex: 1}}>
                                     <Grid item>
                                         <TextField
@@ -135,39 +159,36 @@ export default function CityHall(props) {
                                             variant="outlined"
                                             inputRef={register}
                                             fullWidth
-
                                         />
                                     </Grid>
-                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.Suma?.message}</Grid>
+                                    <Grid item style={{color: '#DB0B18'}}>{errors.City?.message}</Grid>
                                 </Grid>
                                 <Grid item direction='column'>
                                     <Grid item>
                                         <TextField
-                                            id="CodBancar"
+                                            id="BanckAccount"
                                             label='Cod Bancar'
-                                            name="CodBancar"
+                                            name="BanckAccount"
                                             variant="outlined"
                                             inputRef={register}
-
                                         />
                                     </Grid>
-                                    <Grid item style={{color: '#DB0B18'}}>{errors.ContTrez?.message}</Grid>
                                 </Grid>
 
                                 <Grid item direction='column'>
                                     <Grid item>
                                         <TextField
-                                            id="CodPostal"
+                                            id="PostalCode"
                                             label='Cod Postal'
-                                            name="CodPostal"
+                                            name="PostalCode"
                                             variant="outlined"
                                             inputRef={register}
                                         />
                                     </Grid>
-                                    <Grid item style={{color: '#DB0B18'}}>{errors.ContTrez?.message}</Grid>
+                                    <Grid item style={{color: '#DB0B18'}}>{errors.PostalCode?.message}</Grid>
                                 </Grid>
                             </Grid>
-                            <Grid container direction='column'>
+                            <Grid container direction='column' style={{marginTop: 10}}>
                                 <Grid item>
                                     <TextField
                                         id="StreetHouseNumber"
@@ -178,44 +199,42 @@ export default function CityHall(props) {
                                         fullWidth
                                     />
                                 </Grid>
-                                <Grid item style={{color: '#DB0B18'}}>{errors.Etichet?.message}</Grid>
+                                <Grid item style={{color: '#DB0B18'}}>{errors.StreetHouseNumber?.message}</Grid>
                             </Grid>
 
-                            <Grid container direction='row'>
+                            <Grid container direction='row' style={{marginTop: 10}}>
                                 <Grid item direction='column' style={{flex: 1}}>
                                     <Grid item>
                                         <TextField
-                                            id="Phone"
-                                            label='Numar telefon'
-                                            name="Phone"
+                                            id="Phone0"
+                                            label="Numar telefon"
+                                            name="Phone0"
                                             variant="outlined"
                                             inputRef={register}
                                             fullWidth
-
                                         />
                                     </Grid>
-                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.Suma?.message}</Grid>
+                                    <Grid item style={{color: '#DB0B18'}}>{errors.Phone0?.message}</Grid>
                                 </Grid>
                                 <Grid item direction='column'>
                                     <Grid item>
                                         <TextField
-                                            id="Email"
-                                            label='Email'
-                                            name="Email"
+                                            id="Email0"
+                                            label="Email0"
+                                            name="Email0"
                                             variant="outlined"
                                             inputRef={register}
-
                                         />
                                     </Grid>
-                                    <Grid item style={{color: '#DB0B18'}}>{errors.ContTrez?.message}</Grid>
+                                    <Grid item style={{color: '#DB0B18'}}>{errors.Email0?.message}</Grid>
                                 </Grid>
 
                                 <Grid item direction='column'>
                                     <Grid item>
                                         <TextField
-                                            id="Web"
+                                            id="Web0"
                                             label='Web'
-                                            name="Web"
+                                            name="Web0"
                                             variant="outlined"
                                             inputRef={register}
                                         />
@@ -238,9 +257,9 @@ export default function CityHall(props) {
                                             <Grid item direction='column' style={{flex: 1}}>
                                                 <Grid item>
                                                     <TextField
-                                                        id="Phone"
+                                                        id="Phone1"
                                                         label='Numar telefon'
-                                                        name="Phone"
+                                                        name="Phone1"
                                                         variant="outlined"
                                                         inputRef={register}
                                                         fullWidth
@@ -251,9 +270,9 @@ export default function CityHall(props) {
                                             <Grid item direction='column'>
                                                 <Grid item>
                                                     <TextField
-                                                        id="Email"
+                                                        id="Email1"
                                                         label='Email'
-                                                        name="Email"
+                                                        name="Email1"
                                                         variant="outlined"
                                                         inputRef={register}
 
@@ -264,22 +283,22 @@ export default function CityHall(props) {
                                             <Grid item direction='column'>
                                                 <Grid item>
                                                     <TextField
-                                                        id="Web"
+                                                        id="Web1"
                                                         label='Web'
-                                                        name="Web"
+                                                        name="Web1"
                                                         variant="outlined"
                                                         inputRef={register}
                                                     />
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        <Grid item container direction='row' style={{marginTop:10}}>
+                                        <Grid item container direction='row' style={{marginTop: 10}}>
                                             <Grid item direction='column' style={{flex: 1}}>
                                                 <Grid item>
                                                     <TextField
-                                                        id="Phone"
+                                                        id="Phone2"
                                                         label='Numar telefon'
-                                                        name="Phone"
+                                                        name="Phone2"
                                                         variant="outlined"
                                                         inputRef={register}
                                                         fullWidth
@@ -290,9 +309,9 @@ export default function CityHall(props) {
                                             <Grid item direction='column'>
                                                 <Grid item>
                                                     <TextField
-                                                        id="Email"
+                                                        id="Email2"
                                                         label='Email'
-                                                        name="Email"
+                                                        name="Email2"
                                                         variant="outlined"
                                                         inputRef={register}
 
@@ -303,9 +322,9 @@ export default function CityHall(props) {
                                             <Grid item direction='column'>
                                                 <Grid item>
                                                     <TextField
-                                                        id="Web"
+                                                        id="Web2"
                                                         label='Web'
-                                                        name="Web"
+                                                        name="Web2"
                                                         variant="outlined"
                                                         inputRef={register}
                                                     />
@@ -334,4 +353,3 @@ export default function CityHall(props) {
         </>
     );
 }
-
