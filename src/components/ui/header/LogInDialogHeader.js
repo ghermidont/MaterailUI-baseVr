@@ -15,6 +15,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 function Copyright() {
     return (
@@ -50,15 +53,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const schema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.required().min(6).max(20).string().number(),
+});
+
 export default function LogInDialogHeader({open, setOpen}) {
+    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, errors } = useForm({
+        resolver: yupResolver(schema)
+    });
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const classes = useStyles();
 
-
     const handleLogin = (e) => {
         e.preventDefault();
-
 
         AuthService.login(email, password).then(
             () => {
@@ -88,9 +98,33 @@ export default function LogInDialogHeader({open, setOpen}) {
                         <Typography component="h1" variant="h5">
                             Autentificare
                         </Typography>
-                        <form className={classes.form} noValidate>
-                            <TextField variant="outlined" margin="normal" required fullWidth id="emailField" label="Pocita electrică" name="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} autoFocus/>
-                            <TextField variant="outlined" margin="normal" required fullWidth name="passwordField" label="Paroliu" type="password" id="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)}/>
+                        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                            <TextField 
+                                variant="outlined" 
+                                margin="normal" 
+                                fullWidth 
+                                id="email" 
+                                label="Pocita electrică" 
+                                name="email" 
+                                autoComplete="email"
+                                value={email}
+                                onChange={e=>setEmail(e.target.value)} 
+                                autoFocus
+                                ref={register}
+                            >{errors.email?.message}</TextField>
+                            <TextField 
+                                variant="outlined" 
+                                margin="normal" 
+                                fullWidth 
+                                name="password" 
+                                label="Paroliu" 
+                                type="password" 
+                                id="password" 
+                                autoComplete="current-password" 
+                                value={password} 
+                                onChange={e=>setPassword(e.target.value)}
+                                ref={register}
+                            >{errors.password?.message}</TextField>
                             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Țâni-mă minti!"/>
                             <Grid item container style={{marginTop: '2em'}} alignItems="center">
                                 <Grid item sx={6}>
