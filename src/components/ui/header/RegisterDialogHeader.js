@@ -56,7 +56,10 @@ const useStyles = makeStyles((theme) => ({
 const schema = yup.object().shape({
     nameSurname:yup.string().required(),
     IdNumber:yup.number().min(13).max(13).required(),
-    password: yup.string().min(6).max(18).required(),
+    password: Yup.string()
+    .required('No password provided.')
+    .min(8, 'Password is too short - should be 8 chars minimum.')
+    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     city: yup.string().required(),
     postalCode: yup.number().min(4).max(4).required(),
     address: yup.string().required(),
