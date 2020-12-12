@@ -19,6 +19,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -55,13 +56,13 @@ const useStyles = makeStyles((theme) => ({
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
-    password: yup.required().min(6).max(20).string().number(),
+    password: yup.number().min(6).max(18).required(),
 });
 
 export default function LogInDialogHeader({open, setOpen}) {
     const onSubmit = data => console.log(data);
     const { register, handleSubmit, errors } = useForm({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(schema),
     });
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -104,27 +105,29 @@ export default function LogInDialogHeader({open, setOpen}) {
                                 margin="normal" 
                                 fullWidth 
                                 id="email" 
-                                label="Pocita electrică" 
+                                label="Poșta electronică"
                                 name="email" 
                                 autoComplete="email"
                                 value={email}
                                 onChange={e=>setEmail(e.target.value)} 
                                 autoFocus
                                 ref={register}
-                            >{errors.email?.message}</TextField>
+                            />
+                            <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.email?.message}</Grid>
                             <TextField 
                                 variant="outlined" 
                                 margin="normal" 
                                 fullWidth 
                                 name="password" 
-                                label="Paroliu" 
+                                label="Parola"
                                 type="password" 
                                 id="password" 
                                 autoComplete="current-password" 
                                 value={password} 
                                 onChange={e=>setPassword(e.target.value)}
                                 ref={register}
-                            >{errors.password?.message}</TextField>
+                            />
+                            <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.password?.message}</Grid>
                             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Țâni-mă minti!"/>
                             <Grid item container style={{marginTop: '2em'}} alignItems="center">
                                 <Grid item sx={6}>
@@ -136,10 +139,10 @@ export default function LogInDialogHeader({open, setOpen}) {
                             </Grid>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">Ai uitat parola? Duti nafig!</Link>
+                                    <Link href="#" variant="body2">Ați uitat parola?</Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">N-ai acaunt? Ap righestruieștiti!</Link>
+                                    <Link href="#" variant="body2">Nu aveți cont? Înregistrați-vă!</Link>
                                 </Grid>
                             </Grid>
                         </form>

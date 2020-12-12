@@ -15,6 +15,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 function Copyright() {
     return (
@@ -22,7 +25,7 @@ function Copyright() {
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
                 {/* eslint-disable-next-line */}
-               Vasea&apos;s site! Do not touch it!
+               Author Vasile Moraru.
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -50,7 +53,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const schema = yup.object().shape({
+    nameSurname:yup.string().required(),
+    IdNumber:yup.number().min(13).max(13).required(),
+    password: yup.string().min(6).max(18).required(),
+    city: yup.string().required(),
+    postalCode: yup.number().min(4).max(4).required(),
+    address: yup.string().required(),
+    email: yup.string().email().required(),
+});
+
 export default function RegisterDialogHeader({open, setOpen}) {
+    const { register, handleSubmit, errors } = useForm({
+        resolver: yupResolver(schema),
+    });
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const classes = useStyles();
@@ -95,35 +111,41 @@ export default function RegisterDialogHeader({open, setOpen}) {
                         <form className={classes.form} noValidate>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
+                                    {/*Name field*/}
                                     <TextField
                                         autoComplete="fname"
-                                        name="firstName"
+                                        name="nameSurname"
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        id="firstName"
+                                        id="nameSurname"
                                         defaultValue="Ion Rotaru"
                                         label="Nume, prenume sau denumirea plăților"
                                         autoFocus
+                                        ref={register}
                                     />
+                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.nameSurname?.message}</Grid>
                                 </Grid>
                                 <Grid item xs={12}>
+                                    {/*Id number field*/}
                                     <TextField
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        id="lastName"
+                                        id="IdNumber"
                                         label="IDNP/IDNO-ul platitorului"
-                                        name="lastName"
-                                        autoComplete="lname"
+                                        name="IdNumber"
                                         defaultValue="2002002128888"
+                                        ref={register}
                                     />
+                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.IdNumber?.message}</Grid>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <FormControlLabel
                                         control={<Checkbox value="allowExtraEmails" color="primary" />}
                                         label="Persoană fizică"
                                     />
+                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.email?.message}</Grid>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <FormControlLabel
@@ -132,6 +154,7 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
+                                    {/*Email field*/}
                                     <TextField
                                         variant="outlined"
                                         required
@@ -141,60 +164,74 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                         name="email"
                                         autoComplete="email"
                                         defaultValue="abc@abc.com"
+                                        ref={register}
                                     />
+                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.email?.message}</Grid>
                                 </Grid>
                                 <Grid item xs={12}>
+                                    {/*Password field*/}
                                     <TextField
                                         variant="outlined"
                                         required
                                         fullWidth
                                         name="password"
-                                        label="Password"
+                                        label="Parola"
                                         type="password"
                                         id="password"
                                         autoComplete="current-password"
                                         helperText="Minim 6 caractere."
                                         defaultValue="password"
+                                        ref={register}
                                     />
+                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.password?.message}</Grid>
                                 </Grid>
                                 <Grid item xs={12}>
+                                    {/*City field*/}
                                     <TextField
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        name="Oras"
+                                        name="city"
                                         label="Oras"
-                                        id="Oras"
+                                        id="city"
                                         //autoComplete="current-password"
                                         helperText="oras"
                                         defaultValue="Cahul"
+                                        ref={register}
                                     />
+                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.city?.message}</Grid>
                                 </Grid>
                                 <Grid item xs={12}>
+                                    {/*Postal code*/}
                                     <TextField
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        name="CodPostal"
+                                        name="postalCode"
                                         label="CodPostal"
-                                        id="CodPostal"
+                                        id="postalCode"
                                         //autoComplete="current-password"
                                         helperText="4 cifre"
                                         defaultValue="2001"
+                                        ref={register}
                                     />
+                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.postalCode?.message}</Grid>
                                 </Grid>
                                 <Grid item xs={12}>
+                                    {/*Address field*/}
                                     <TextField
                                         variant="outlined"
                                         required
                                         fullWidth
-                                        name="Adresa"
+                                        name="address"
                                         label="Adresa"
-                                        id="Adresa"
+                                        id="address"
                                         //autoComplete="current-password"
                                         helperText="Minim 6 caractere."
                                         defaultValue="str. Stefan cel Mare 100, sc. 3 ap 50"
+                                        ref={register}
                                     />
+                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.address?.message}</Grid>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <FormControlLabel
