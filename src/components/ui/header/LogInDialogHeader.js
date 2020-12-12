@@ -15,13 +15,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Your Website
+                {/* eslint-disable-next-line */}
+                Vasea&apos;s site! Do not touch it!
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -49,15 +54,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DialogHeader({open, setOpen}) {
+const schema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.number().min(6).max(18).required(),
+});
+
+export default function LogInDialogHeader({open, setOpen}) {
+    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, errors } = useForm({
+        resolver: yupResolver(schema),
+    });
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const classes = useStyles();
 
-
     const handleLogin = (e) => {
         e.preventDefault();
-
 
         AuthService.login(email, password).then(
             () => {
@@ -66,21 +78,17 @@ export default function DialogHeader({open, setOpen}) {
             },
             (error) => {
                 const resMessage =
-                (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
             }
         );
     };
 
     return (
-        <Dialog
-            style={{zIndex: 1302}}
-            open={open}
-            onClose={() => setOpen(false)}
-        >
+        <Dialog style={{zIndex: 1302}} open={open} onClose={() => setOpen(false)}>
             <DialogContent>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
@@ -89,77 +97,52 @@ export default function DialogHeader({open, setOpen}) {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign in
+                            Autentificare
                         </Typography>
-                        <form className={classes.form} noValidate>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
+                        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                            <TextField 
+                                variant="outlined" 
+                                margin="normal" 
+                                fullWidth 
+                                id="email" 
+                                label="Poșta electronică"
+                                name="email" 
                                 autoComplete="email"
                                 value={email}
-                                onChange={e=>setEmail(e.target.value)}
+                                onChange={e=>setEmail(e.target.value)} 
                                 autoFocus
+                                ref={register}
                             />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                value={password}
+                            <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.email?.message}</Grid>
+                            <TextField 
+                                variant="outlined" 
+                                margin="normal" 
+                                fullWidth 
+                                name="password" 
+                                label="Parola"
+                                type="password" 
+                                id="password" 
+                                autoComplete="current-password" 
+                                value={password} 
                                 onChange={e=>setPassword(e.target.value)}
+                                ref={register}
                             />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
-                            <Grid
-                                item
-                                container
-                                style={{marginTop: '2em'}}
-                                alignItems="center"
-                            >
-
-                           
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                    onClick={handleLogin}
-                                >
-                                Sign In
-                                </Button>
-                                <Grid item>
-                                    <Button
-                                        style={{fontWeight: 300}}
-                                        color="primary"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                    Cancel
-                                    </Button>
+                            <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.password?.message}</Grid>
+                            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Țâni-mă minti!"/>
+                            <Grid item container style={{marginTop: '2em'}} alignItems="center">
+                                <Grid item sx={6}>
+                                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleLogin}>Logare</Button>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Button style={{fontWeight: 300}} color="primary" onClick={() => setOpen(false)}>Anulare</Button>
                                 </Grid>
                             </Grid>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
+                                    <Link href="#" variant="body2">Ați uitat parola?</Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {'Don\'t have an account? Sign Up'}
-                                    </Link>
+                                    <Link href="#" variant="body2">Nu aveți cont? Înregistrați-vă!</Link>
                                 </Grid>
                             </Grid>
                         </form>
