@@ -36,17 +36,6 @@ const updateElectronicService = (param, x) => {
 };
 
 
-
-const getUserByEmail = (param1, param2) => {
-    return axios.get(API_URL + 'GetUserByEmail', {
-        params: {
-            userEmail: param1,
-            roleName: param2
-        }
-    });
-};
-
-
 export default {
     getListElectronicService,
     postNewElectronicService,

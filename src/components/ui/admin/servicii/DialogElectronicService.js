@@ -110,7 +110,6 @@ export default function DialogElectronicService({open, setOpen, id, setId, schem
                                 </Grid>
                                 <Grid item style={{color: '#DB0B18'}}>{errors.ContTrez?.message}</Grid>
                             </Grid>
-
                         </Grid>
                         <Grid container style={{marginTop: 10}}>
                             <TextField
@@ -128,10 +127,10 @@ export default function DialogElectronicService({open, setOpen, id, setId, schem
                             <Button variant="contained" color="primary" type='submit' style={{marginRight: 60,}}>
                                 Modifica
                             </Button>
-                            <Button variant="contained" color="secondary" type='submit' onClick={() => {
+                            <Button variant="contained" color="secondary" onClick={() => {
                                 setOpen(false);
                                 setId(0);
-                                reset({}, { errors: true });
+                                reset();
                             }}>
                                 Anuleaza
                             </Button>
