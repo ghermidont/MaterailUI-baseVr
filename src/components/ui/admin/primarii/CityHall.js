@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import CityHallService from '../../../../services/cityHall.service';
 import IconButton from '@material-ui/core/IconButton';
@@ -31,14 +31,15 @@ const schema = yup.object().shape({
 });
 
 export default function CityHall(props) {
-    const {register, handleSubmit, errors, reset} = useForm({
+    const {register, handleSubmit, errors, reset, setValue, watch} = useForm({
         resolver: yupResolver(schema)
     });
-
+    let myRef = useRef();
     const [rows, setRows] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [id, setId] = useState();
-
+    const [trigger, setTrigger] = useState(0);
+    const [editMode, setEditMode] = useState(false);
+    const [rowId, setRowId] = useState(null);
+    const watchAllFields = watch();
 
     useEffect(() => {
         CityHallService.getListCityHall().then(
@@ -46,10 +47,24 @@ export default function CityHall(props) {
                 setRows(response.data);
             }
         );
-    }, []);
+    }, [trigger]);
 
 
     const populateCityHallForm = (data) => {
+        setValue('Name', data.name);
+        setValue('BanckAccount', data.banckAccount);
+        setValue('StreetHouseNumber', data.addressCityHall[0]?.streetHouseNumber);
+        setValue('City', data.addressCityHall[0]?.city);
+        setValue('PostalCode', data.addressCityHall[0]?.postalCode);
+        setValue('Phone0', data.addressCityHall[0]?.phone0);
+        setValue('Phone1', data.addressCityHall[0]?.phone1);
+        setValue('Phone2', data.addressCityHall[0]?.phone2);
+        setValue('Email0', data.addressCityHall[0]?.email0);
+        setValue('Email1', data.addressCityHall[0]?.email1);
+        setValue('Email2', data.addressCityHall[0]?.email2);
+        setValue('Web0', data.addressCityHall[0]?.web0);
+        setValue('Web1', data.addressCityHall[0]?.web1);
+        setValue('Web2', data.addressCityHall[0]?.web2);
 
     };
 
@@ -63,7 +78,13 @@ export default function CityHall(props) {
             renderCell: (z) => {
                 const onClick = () => {
                     CityHallService.getCityHallById(z.row.id).then(
-                        x => populateCityHallForm(x.data)
+                        response => {
+                            setRowId(z.row.id),
+                            reset(),
+                            populateCityHallForm(response.data),
+                            setEditMode(true);
+                            window.scrollTo({behavior: 'smooth', top: myRef.current.offsetTop});
+                        }
                     );
                 };
                 return (
@@ -79,9 +100,8 @@ export default function CityHall(props) {
             // eslint-disable-next-line react/display-name
             renderCell: (z) => {
                 const onClick = () => {
-                    // ElectronicService.deleteElectronicService(z.row.id);
-                    // setTriggerRow((x) => x + 1);
-                    // console.log(z.row.id);
+                    CityHallService.deleteCityHallById(z.row.id);
+                    setTrigger(prev => prev + 1);
 
                 };
                 return (
@@ -92,7 +112,10 @@ export default function CityHall(props) {
             }
         }
     ];
-    const onSubmit = data => {
+
+    const onSubmit = (data,e) => {
+
+
         console.log(data);
         const AddressContactCityHall1 = {
             City: data.City,
@@ -112,9 +135,29 @@ export default function CityHall(props) {
         const data1 = {
             Name: data.Name,
             BanckAccount: data.BanckAccount,
-            AddressContactCityHall: [AddressContactCityHall1]
+            AddressCityHall: [AddressContactCityHall1]
         };
         console.log(data1);
+        console.log( );
+
+        e.target.getElementsByClassName('Modifica').length ?
+            CityHallService.updateCityHall(rowId, data1).then(
+                response => {
+                    setTrigger(prev => prev + 1);
+                    setEditMode(false);
+                    reset();
+
+                }
+            )
+            :
+            CityHallService.postNewCityHall(data1).then(
+                response => {
+                    setTrigger(prev => prev + 1);
+                    reset();
+                }
+            );
+
+
     };
     return (
         <>
@@ -131,15 +174,18 @@ export default function CityHall(props) {
                                 <DataGrid rows={rows} columns={columns} pageSize={3} sortModel={gridSortModel}/>
                             </div>
                         </Grid>
-                        <Grid container justify={'center'}>
-                        </Grid>
+                    </Grid>
 
+                    <Grid container justify={'center'}>
+
+                        {/*Form*/}
                         <Grid item container direction={'column'} style={{marginTop: 10}}>
                             <Grid item direction='column' style={{marginTop: 10}}>
                                 <Grid item>
+                                    {console.log('RENDER')}
                                     <TextField
                                         id="Name"
-                                        label='Nume primarie'
+                                        label={watchAllFields.Name && editMode ? undefined : 'Nume primarie'}
                                         name="Name"
                                         variant="outlined"
                                         inputRef={register}
@@ -154,7 +200,7 @@ export default function CityHall(props) {
                                     <Grid item>
                                         <TextField
                                             id="City"
-                                            label='Oras'
+                                            label={watchAllFields.City && editMode ? undefined : 'Oras'}
                                             name="City"
                                             variant="outlined"
                                             inputRef={register}
@@ -167,7 +213,7 @@ export default function CityHall(props) {
                                     <Grid item>
                                         <TextField
                                             id="BanckAccount"
-                                            label='Cod Bancar'
+                                            label={watchAllFields.BanckAccount && editMode ? undefined : 'Cod Bancar'}
                                             name="BanckAccount"
                                             variant="outlined"
                                             inputRef={register}
@@ -179,7 +225,7 @@ export default function CityHall(props) {
                                     <Grid item>
                                         <TextField
                                             id="PostalCode"
-                                            label='Cod Postal'
+                                            label={watchAllFields.PostalCode && editMode ? undefined : 'Cod Postal'}
                                             name="PostalCode"
                                             variant="outlined"
                                             inputRef={register}
@@ -193,7 +239,7 @@ export default function CityHall(props) {
                                     <TextField
                                         id="StreetHouseNumber"
                                         name="StreetHouseNumber"
-                                        label='Strada si numar bloc'
+                                        label={watchAllFields.StreetHouseNumber && editMode ? undefined : 'Strada si numar bloc'}
                                         variant="outlined"
                                         inputRef={register}
                                         fullWidth
@@ -207,7 +253,7 @@ export default function CityHall(props) {
                                     <Grid item>
                                         <TextField
                                             id="Phone0"
-                                            label="Numar telefon"
+                                            label={watchAllFields.Phone0 && editMode ? undefined : 'Numar telefon'}
                                             name="Phone0"
                                             variant="outlined"
                                             inputRef={register}
@@ -220,7 +266,7 @@ export default function CityHall(props) {
                                     <Grid item>
                                         <TextField
                                             id="Email0"
-                                            label="Email0"
+                                            label={watchAllFields.Email0 && editMode ? undefined : 'Email'}
                                             name="Email0"
                                             variant="outlined"
                                             inputRef={register}
@@ -233,7 +279,7 @@ export default function CityHall(props) {
                                     <Grid item>
                                         <TextField
                                             id="Web0"
-                                            label='Web'
+                                            label={watchAllFields.Web0 && editMode ? undefined : 'Web'}
                                             name="Web0"
                                             variant="outlined"
                                             inputRef={register}
@@ -242,6 +288,8 @@ export default function CityHall(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
+
+                        {/*Accordion*/}
                         <Grid container style={{marginTop: 10}}>
                             <Accordion>
                                 <AccordionSummary
@@ -258,7 +306,7 @@ export default function CityHall(props) {
                                                 <Grid item>
                                                     <TextField
                                                         id="Phone1"
-                                                        label='Numar telefon'
+                                                        label={watchAllFields.Phone1 && editMode ? undefined : 'Numar telefon'}
                                                         name="Phone1"
                                                         variant="outlined"
                                                         inputRef={register}
@@ -271,11 +319,10 @@ export default function CityHall(props) {
                                                 <Grid item>
                                                     <TextField
                                                         id="Email1"
-                                                        label='Email'
+                                                        label={watchAllFields.Email1 && editMode ? undefined : 'Email'}
                                                         name="Email1"
                                                         variant="outlined"
                                                         inputRef={register}
-
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -284,7 +331,7 @@ export default function CityHall(props) {
                                                 <Grid item>
                                                     <TextField
                                                         id="Web1"
-                                                        label='Web'
+                                                        label={watchAllFields.Web1 && editMode ? undefined : 'Web'}
                                                         name="Web1"
                                                         variant="outlined"
                                                         inputRef={register}
@@ -297,7 +344,7 @@ export default function CityHall(props) {
                                                 <Grid item>
                                                     <TextField
                                                         id="Phone2"
-                                                        label='Numar telefon'
+                                                        label={watchAllFields.Phone2 && editMode ? undefined : 'Numar telefon'}
                                                         name="Phone2"
                                                         variant="outlined"
                                                         inputRef={register}
@@ -310,11 +357,10 @@ export default function CityHall(props) {
                                                 <Grid item>
                                                     <TextField
                                                         id="Email2"
-                                                        label='Email'
+                                                        label={watchAllFields.Email2 && editMode ? undefined : 'Email'}
                                                         name="Email2"
                                                         variant="outlined"
                                                         inputRef={register}
-
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -323,7 +369,7 @@ export default function CityHall(props) {
                                                 <Grid item>
                                                     <TextField
                                                         id="Web2"
-                                                        label='Web'
+                                                        label={watchAllFields.Web2 && editMode ? undefined : 'Web'}
                                                         name="Web2"
                                                         variant="outlined"
                                                         inputRef={register}
@@ -335,18 +381,32 @@ export default function CityHall(props) {
                                 </AccordionDetails>
                             </Accordion>
                         </Grid>
-                        <Grid item container justify={'center'} style={{marginTop: 20}}>
-                            <Button variant="contained" color="primary" type='submit' style={{marginRight: 60,}}>
-                                Modifica
-                            </Button>
-                            <Button variant="contained" color="secondary" onClick={() => {
-                                setOpen(false);
-                                setId(0);
-                                reset();
-                            }}>
-                                Anuleaza
-                            </Button>
+
+                        {/*Buttons*/}
+                        <Grid item container style={{marginTop: 20}} ref={myRef}>
+                            {
+                                !editMode ?
+                                    <Button variant="contained" color="primary" type='submit'
+                                        style={{marginRight: 60,}} className={'test'} id={'testid'} itemID={'testItemId'}>
+                                        Adauga primarie
+                                    </Button>
+                                    :
+                                    <Grid container justify={'center'}>
+                                        <Button variant="contained" color="primary" type='submit'
+                                            style={{marginRight: 60,}} className={'Modifica'} >
+                                            Modifica
+                                        </Button>
+                                        <Button variant="contained" color="secondary" onClick={() => {
+                                            reset();
+                                            setEditMode(false);
+                                        }}>
+                                            Anuleaza
+                                        </Button>
+                                    </Grid>
+                            }
+
                         </Grid>
+
                     </Grid>
                 </form>
             </Grid>

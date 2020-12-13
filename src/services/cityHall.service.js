@@ -12,9 +12,26 @@ const getCityHallById = (param) => {
 };
 
 
+const deleteCityHallById = (param) => {
+    return axios.delete(API_URL + `${param}`);
+};
+
+const postNewCityHall = (x) => {
+    return axios.post(API_URL,
+        x
+    );
+};
+
+const updateCityHall = (param, x) => {
+    return axios.put(API_URL +`${param}`, x);
+};
+
 
 
 export default {
     getListCityHall,
-    getCityHallById
+    getCityHallById,
+    deleteCityHallById,
+    postNewCityHall,
+    updateCityHall
 };

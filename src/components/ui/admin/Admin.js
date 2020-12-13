@@ -10,6 +10,7 @@ import PaymentForm from '../CheckOutForm/PaymentForm';
 import Roles from './roluri/Roles';
 import ElectronicServices from './servicii/ElectronicServices';
 import CityHall from './primarii/CityHall';
+import Iban from './iban/Iban';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,6 +39,9 @@ export default function Admin(props) {
     case 2:
         tmp = <CityHall/>;
         break;
+    case 3:
+        tmp = <Iban/>;
+        break;
     }
     return (
         <>
@@ -52,6 +56,7 @@ export default function Admin(props) {
                     <Tab label="Roluri"/>
                     <Tab label="Servicii"/>
                     <Tab label="Primarii"/>
+                    <Tab label="Iban"/>
                     <Tab component={Link} to="/" label="Pagina principala"/>
                 </Tabs>
             </Paper>
