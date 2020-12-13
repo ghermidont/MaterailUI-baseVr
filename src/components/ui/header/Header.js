@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 //media import
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import headerBgImage from '../../../../src/assets/png/backgrounds/headerBackgroung.png';
+import headerBgImage from '../../../assets/png/backgrounds/headerBackgroung.png';
 import icon1Small from '../../../assets/png/small/icon1Small.png';
 import icon2Small from '../../../assets/png/small/icon2Small.png';
 import icon3Small from '../../../assets/png/small/icon3Small.png';

@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import CardImage from '../../assets/png/1.1.png';
+import CardImage from '../../assets/png/small/icon1Small.png';
 
 const useStyles = makeStyles((theme) => ({
     icon: {
