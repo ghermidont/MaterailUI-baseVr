@@ -1,88 +1,71 @@
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import ReactDOM from 'react-dom';
-import id from 'uuid/v1';
+import React, {useEffect, useState} from 'react';
+import {ThemeProvider} from '@material-ui/styles';
+import {BrowserRouter} from 'react-router-dom';
+import {Route, Switch} from 'react-router';
+import Header from './ui/header/Header';
+import theme from './ui/Theme';
+import Footer from './ui/Footer';
+//import SignIn from './ui/SignIn';
+import SignUp from './ui/SignUp';
+import servicesList from './ui/ServiceList';
+import Checkout from './ui/CheckOutForm/Checkout';
+import Admin from './ui/admin/Admin';
+import Grid from '@material-ui/core/Grid';
+import {makeStyles} from '@material-ui/core/styles';
+import AuthService from '../services/auth.service';
+import Constants from '../services/constants';
 
-let renderCount = 0;
+//test
+const useStyles = makeStyles(() => ({
+    root: {
+        backgroundColor: '#ffffff',
+    },
+    content:{
+        backgroundImage: 'linear-gradient(to top, #faf4f2, rgba(250, 238, 233, 0) 32%, #fae0d7)',
+    }
+
+}));
+
 
 function App() {
-    const [data, setData] = useState([]);
-    const { register, getValues, watch, handleSubmit, control } = useForm();
-    const at = watch('at', 2);
-    const prepend = () => {
-        setData([{ id: id() }, ...data]);
-    };
+    const classes = useStyles();
+    const [role, setRole] = useState('');
 
-    const append = () => {
-        setData([...data, { id: id() }]);
-    };
-
-    const remove = index => {
-        setData([...data.slice(0, index), ...data.slice(index + 1)]);
-    };
-
-    const update = index => {
-        const values = getValues();
-        const oldId = data[index].id;
-        const newId = values[`field${oldId}`];
-        setData([...data.slice(0, index), { id: newId }, ...data.slice(index + 1)]);
-    };
-
-    const insert = index => {
-        setData([
-            ...data.slice(0, index),
-            { result: '', id: id() },
-            ...data.slice(index)
-        ]);
-    };
-
-    const onSubmit = data => {
-        alert(JSON.stringify(data));
-    };
-
-    renderCount++;
+    useEffect(() => {
+        const user = AuthService.getCurrentUser();
+        setRole(user[Constants.role]);
+        // info1@test.com  Ak.123
+    }, []);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Field Array </h1>
-            <p>The following demo allow you to delete, append, prepend items</p>
-            <span className="counter">Render Count: {renderCount}</span>
-            <ul>
-                {data.map((item, index) => (
-                    <li key={item.id}>
-                        <Controller
-                            as={<input />}
-                            name={`field${item.id}`}
-                            control={control}
-                            defaultValue={item.id}
-                        />
-                        <button onClick={() => remove(index)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-            <section>
-                <button
-                    type="button"
-                    onClick={() => {
-                        append();
-                    }}
-                >
-                    append
-                </button>
-                <button type="button" onClick={() => prepend()}>
-                    prepend
-                </button>
-                <input name="at" ref={register} placeholder="Insert index" />
-                <button type="button" onClick={() => insert(parseInt(at, 10))}>
-                    insert at
-                </button>
-            </section>
+        <ThemeProvider theme={theme}>
+            {console.log(role)}
+            <Grid container direction="column" >
+                <Grid item container>
+                    <Grid className={classes.root} item xs={0} sm={2} />
+                    <Grid className={classes.content} item xs={12} sm={8} style={{border: 'solid 1px #707070'}}>
 
-            <input type="submit" />
-        </form>
+                        <BrowserRouter>
+                            <Header role={role}/>
+
+                            <Switch>
+                                <Route exact path='/' component={servicesList}/>
+                                <Route exact path='/admin' component={Admin}/>
+
+                                <Route exact path='/signup' component={SignUp}/>
+                                <Route exact path='/pay' component={Checkout}/>Checkout
+                            </Switch>
+                            <Footer />
+                        </BrowserRouter>
+
+                    </Grid>
+                    <Grid className={classes.root} item xs={0} sm={2} />
+                </Grid>
+            </Grid>
+        </ThemeProvider>
+
+
     );
 }
-
-
 
 export default App;
