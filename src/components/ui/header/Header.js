@@ -1,26 +1,42 @@
+//packages import
 import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Box from '@material-ui/core/Box';
-import headerBgImage from '../../../assets/png/headerBackgroung.png';
-import button1BgImage from '../../../assets/png/1.1.png';
-//import Menu from '@material-ui/core/Menu';
-//import MenuItem from '@material-ui/core/MenuItem';
-//import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-//https://github.com/jcoreio/material-ui-popup-state
+//media import
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import headerBgImage from '../../../assets/png/backgrounds/headerBackgroung.png';
+import icon1Small from '../../../assets/png/small/icon1Small.png';
+import icon2Small from '../../../assets/png/small/icon2Small.png';
+import icon3Small from '../../../assets/png/small/icon3Small.png';
+import icon4Small from '../../../assets/png/small/icon4Small.png';
 import Typography from '@material-ui/core/Typography';
-import primariaHeraldica from '../../../assets/png/5.1.png';
-import DialogHeader from './DialogHeader';
-import {Link} from 'react-router-dom';
+import heraldicaSmall from '../../../assets/png/small/heraldicaSmall.png';
+//app components import
+//import RegisterDialogHeader from './RegisterDialogHeader';
+import LogInDialogHeader from './LogInDialogHeader';
 import AuthService from '../../../services/auth.service';
 import CountrySelect from './primariasMenu';
 
+//the buttons array sets the number of buttons in the header
+const buttons = [1, 2, 3, 4, 5];
+const iconLinks= [icon1Small, icon2Small, icon3Small, icon4Small, heraldicaSmall];
+
+//generate random number in a certain range
+const randomNumb = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+};
+
+let randomIconVar = iconLinks[randomNumb(1, 6)];
+
 const useStyles = makeStyles(theme => ({
     root: {
-        position: 'sticky',
+        //position: 'sticky',
         // top MUST be specified in order sticky to work
         top: 0,
         flexGrow: 1,
@@ -67,69 +83,20 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '20px',
         float: 'right',
         color: 'white'
-    },
-    button1: {
-        backgroundImage: `url(${button1BgImage})`,
-    },
-    button2: {
-        backgroundImage: `url(${button1BgImage})`
-    },
-    button3: {
-        backgroundImage: `url(${button1BgImage})`
-    },
-    button4: {
-        backgroundImage: `url(${button1BgImage})`
-    },
-    button5: {
-        backgroundImage: `url(${button1BgImage})`
-    },
-    button6: {
-        backgroundImage: `url(${button1BgImage})`
-    },
+    }
+
 }));
 
 export default function Header({role}) {
     const classes = useStyles();
     // eslint-disable-next-line react/prop-types
     const [open, setOpen] = useState(false);
-
-    let adminOrNot = role ==='Admin' ?
-        <Button
-            component={Link}
-            to="/admin"
-            className={classes.authButton}
-            color="primary"
-            variant="outlined"
-            startIcon={<ExitToAppIcon/>}>
-            Panel Administrare </Button>
-        :
-        <Button
-            component={Link}
-            to="/pay"
-            className={classes.authButton}
-            color="primary"
-            variant="outlined"
-            startIcon={<ExitToAppIcon/>}>
-            Cabinet Personal</Button>;
+    // de ce 'let' si mai jos 'const'?
+    let adminOrNot = role ==='Admin'?<Button component={Link} to="/admin" className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>}>Admin </Button>:<Button component={Link} to="/pay" className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>}>Cabinet Personal</Button>;
 
     adminOrNot = (typeof role === 'undefined') ? null : adminOrNot;
 
-    const loginLogout = (typeof role === 'undefined') ?
-        <Button
-            className={classes.authButton}
-            color="primary"
-            variant="outlined"
-            startIcon={<ExitToAppIcon/>}
-            onClick={() => setOpen(true)}>
-            Autentificare</Button>
-        :
-        <Button
-            className={classes.authButton}
-            color="primary"
-            variant="outlined"
-            startIcon={<ExitToAppIcon/>}
-            onClick={() => AuthService.logout()}>
-            Vă deconectați</Button>;
+    const loginLogout = (typeof role === 'undefined')?<Button className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>} onClick={() => setOpen(true)}>Autentificare</Button>:<Button className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>} onClick={() => AuthService.logout()}>Vă deconectați</Button>;
 
     return (
         <React.Fragment>
@@ -146,24 +113,24 @@ export default function Header({role}) {
                     <Grid item xs={12}>
                         <Typography component="div">
                             <div className={classes.primariaAndSymbol}>
-                                <img src={primariaHeraldica} alt="photo" className={classes.icon}/>
-                                <Box color="white" fontWeight={500} textAlign="center" fontSize={50} m={1}>Primaria Ciorescu</Box>
+                                <img src={heraldicaSmall} alt="photo" className={classes.icon}/>
+                                <Box color="white" fontWeight={500} textAlign="center" fontSize={50} m={1}>Primăria Ciorescu</Box>
                             </div>
-                            <Box color="white" textAlign="center">Portalul serviciilor primariei</Box>
+                            <Box color="white" textAlign="center">Portalul serviciilor primăriei</Box>
                         </Typography>
                     </Grid>
-
+                    {/*Buttons section*/}
                     <Grid className={classes.gridButtons} item xs={12} >
-                        <Button className={classNames(classes.buttons, classes.button1)} variant="contained">Certificat de Urbanism</Button>
-                        <Button className={classNames(classes.buttons, classes.button2)} variant="contained">Reserve city tour</Button>
-                        <Button className={classNames(classes.buttons, classes.button3)} variant="contained">Obtain permits</Button>
-                        <Button className={classNames(classes.buttons, classes.button4)} variant="contained">Find the best</Button>
-                        <Button className={classNames(classes.buttons, classes.button5)} variant="contained">Return to you</Button>
-                        <Button className={classNames(classes.buttons, classes.button6)} variant="contained">Reserve tours</Button>
+                        {/*loops thru the \'buttons\' array*/}
+                        {buttons.map((card) => (
+                            <Button key={card} className={classNames(classes.buttons, classes.button)} variant="contained"  style={{backgroundImage: `url(${randomIconVar})`}}>Service name from the DB</Button>
+                        ))}
+                        {console.log(randomIconVar)}
                     </Grid>
                 </Grid>
             </div>
-            <DialogHeader open={open} setOpen={setOpen}/>
+            {/*<RegisterDialogHeader open={open} setOpen={setOpen}/>*/}
+            <LogInDialogHeader open={open} setOpen={setOpen}/>
         </React.Fragment>
     );
 }

@@ -38,7 +38,7 @@ export default function ElectronicServices(props) {
                 setRows(response.data);
             }
         );
-    }, [triggerRow]);
+    }, );
 
     const columns = [
         {field: 'id', headerName: 'Id', width: 0,},
