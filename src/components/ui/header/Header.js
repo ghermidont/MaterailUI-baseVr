@@ -8,13 +8,13 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 //media import
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import headerBgImage from '../../../../src/assets/png/backgrounds/headerBackgroung.png';
-import icon1Small from '../../../assets/png/small/icon1Small.png';
-import icon2Small from '../../../assets/png/small/icon2Small.png';
-import icon3Small from '../../../assets/png/small/icon3Small.png';
-import icon4Small from '../../../assets/png/small/icon4Small.png';
+import headerBgImage from '../../../assets/png/headerBackgroung.png';
+import icon1Small from '../../../assets/png/small/1.1.png';
+import icon2Small from '../../../assets/png/small/1.1.png';
+import icon3Small from '../../../assets/png/small/1.1.png';
+import icon4Small from '../../../assets/png/small/1.1.png';
 import Typography from '@material-ui/core/Typography';
-import heraldicaSmall from '../../../assets/png/small/heraldicaSmall.png';
+import heraldicaSmall from '../../../assets/png/1.1.png';
 //app components import
 //import RegisterDialogHeader from './RegisterDialogHeader';
 import LogInDialogHeader from './LogInDialogHeader';
