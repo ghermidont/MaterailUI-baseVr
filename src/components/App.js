@@ -35,6 +35,7 @@ function App() {
         const user = AuthService.getCurrentUser();
         setRole(user[Constants.role]);
         // info1@test.com  Ak.123
+        //rsf, rsfp, rsi
     }, []);
 
     return (

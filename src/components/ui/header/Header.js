@@ -32,7 +32,7 @@ const randomNumb = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
 };
 
-let randomIconVar = iconLinks[randomNumb(1, 6)];
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -88,6 +88,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Header({role}) {
+    let randomIconVar = () => iconLinks[randomNumb(1, 5)];
     const classes = useStyles();
     // eslint-disable-next-line react/prop-types
     const [open, setOpen] = useState(false);
@@ -123,9 +124,10 @@ export default function Header({role}) {
                     <Grid className={classes.gridButtons} item xs={12} >
                         {/*loops thru the \'buttons\' array*/}
                         {buttons.map((card) => (
-                            <Button key={card} className={classNames(classes.buttons, classes.button)} variant="contained"  style={{backgroundImage: `url(${randomIconVar})`}}>Service name from the DB</Button>
+
+
+                            <Button key={card} className={classNames(classes.buttons, classes.button)} variant="contained"  style={{backgroundImage: `url(${randomIconVar()})`}}>Service name from the DB</Button>
                         ))}
-                        {console.log(randomIconVar)}
                     </Grid>
                 </Grid>
             </div>

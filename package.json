@@ -58,7 +58,8 @@
     "eslint": "^7.12.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "yup": "^0.32.8"
+    "yup": "^0.32.8",
+    "uuid": "3.3.3"
   },
   "author": "Vasile Moraru",
   "license": "ISC"

@@ -33,12 +33,14 @@ export default function ElectronicServices(props) {
 
 
     useEffect(() => {
+        console.log('vaseas');
         ElectronicService.getListElectronicService().then(
             (response) => {
                 setRows(response.data);
             }
         );
-    }, );
+
+    },[triggerRow]);
 
     const columns = [
         {field: 'id', headerName: 'Id', width: 0,},
