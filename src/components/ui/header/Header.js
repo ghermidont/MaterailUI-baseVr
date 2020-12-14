@@ -32,7 +32,7 @@ const randomNumb = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
 };
 
-let randomIconVar = iconLinks[randomNumb(1, 6)];
+let randomIconVar = () => iconLinks[randomNumb(1, 5)];
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -84,7 +84,6 @@ const useStyles = makeStyles(theme => ({
         float: 'right',
         color: 'white'
     }
-
 }));
 
 export default function Header({role}) {
@@ -92,21 +91,64 @@ export default function Header({role}) {
     // eslint-disable-next-line react/prop-types
     const [open, setOpen] = useState(false);
     // de ce 'let' si mai jos 'const'?
-    let adminOrNot = role ==='Admin'?<Button component={Link} to="/admin" className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>}>Admin </Button>:<Button component={Link} to="/pay" className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>}>Cabinet Personal</Button>;
+    let adminOrNot = role ==='Admin'?
+        <Button 
+            component={Link} 
+            to="/admin" 
+            className={classes.authButton} 
+            color="primary" 
+            variant="outlined" 
+            startIcon={<ExitToAppIcon/>}
+        >Admin 
+        </Button>:
+        <Button 
+            component={Link} 
+            to="/pay" 
+            className={classes.authButton} 
+            color="primary" 
+            variant="outlined" 
+            startIcon={<ExitToAppIcon/>}
+        >Cabinet Personal
+        </Button>;
 
     adminOrNot = (typeof role === 'undefined') ? null : adminOrNot;
 
-    const loginLogout = (typeof role === 'undefined')?<Button className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>} onClick={() => setOpen(true)}>Autentificare</Button>:<Button className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>} onClick={() => AuthService.logout()}>Vă deconectați</Button>;
+    const loginLogout = (typeof role === 'undefined')?
+        <Button 
+            className={classes.authButton} 
+            color="primary" 
+            variant="outlined" 
+            startIcon={<ExitToAppIcon/>} 
+            onClick={() => setOpen(true)}
+        >Autentificare
+        </Button>:
+        <Button 
+            className={classes.authButton} 
+            color="primary" 
+            variant="outlined" 
+            startIcon={<ExitToAppIcon/>} 
+            onClick={() => AuthService.logout()}
+        >Vă deconectați
+        </Button>;
 
     return (
         <React.Fragment>
             {console.log(role)}
             <div className={classes.root}>
-                <Grid container spacing={3} direction="row" justify="center" alignItems="center">
+                <Grid 
+                    container spacing={3} 
+                    direction="row" 
+                    justify="center" 
+                    alignItems="center">
                     <Grid item xs={12} sm={6}>
                         <CountrySelect />
                     </Grid>
-                    <Grid item xs={12} sm={6} direction="row" justify="flex-end" alignItems="center">
+                    <Grid 
+                        item xs={12} 
+                        sm={6} 
+                        direction="row" 
+                        justify="flex-end" 
+                        alignItems="center">
                         {loginLogout}
                         {adminOrNot}
                     </Grid>
@@ -114,7 +156,12 @@ export default function Header({role}) {
                         <Typography component="div">
                             <div className={classes.primariaAndSymbol}>
                                 <img src={heraldicaSmall} alt="photo" className={classes.icon}/>
-                                <Box color="white" fontWeight={500} textAlign="center" fontSize={50} m={1}>Primăria Ciorescu</Box>
+                                <Box 
+                                    color="white" 
+                                    fontWeight={500} 
+                                    textAlign="center" 
+                                    fontSize={50} 
+                                    m={1}>Primăria Ciorescu</Box>
                             </div>
                             <Box color="white" textAlign="center">Portalul serviciilor primăriei</Box>
                         </Typography>
@@ -123,7 +170,13 @@ export default function Header({role}) {
                     <Grid className={classes.gridButtons} item xs={12} >
                         {/*loops thru the \'buttons\' array*/}
                         {buttons.map((card) => (
-                            <Button key={card} className={classNames(classes.buttons, classes.button)} variant="contained"  style={{backgroundImage: `url(${randomIconVar})`}}>Service name from the DB</Button>
+                            <Button 
+                                key={card} 
+                                className={classNames(classes.buttons, classes.button)} 
+                                variant="contained"  
+                                style={{backgroundImage: `url(${randomIconVar()})`}}
+                            >Service name from the DB
+                            </Button>
                         ))}
                         {console.log(randomIconVar)}
                     </Grid>

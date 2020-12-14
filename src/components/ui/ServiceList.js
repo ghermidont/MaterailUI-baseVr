@@ -10,6 +10,12 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import CardImage from '../../assets/png/small/icon1Small.png';
+import icon1Small from '../../../assets/png/small/icon1Small.png';
+import icon2Small from '../../../assets/png/small/icon2Small.png';
+import icon3Small from '../../../assets/png/small/icon3Small.png';
+import icon4Small from '../../../assets/png/small/icon4Small.png';
+import Typography from '@material-ui/core/Typography';
+import heraldicaSmall from '../../../assets/png/small/heraldicaSmall.png';
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -54,6 +60,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+//in production will be formed from the entries obtained from the database.
+const servicesList = [
+    'Achitare impozit pe aer respirat',
+    'Eliberare certificatului de lashara ',
+    'Inregistrarea navei spatiale',
+    'Arendarea primariei pentru evenimete',
+    'Zbor in cosmos',
+    'Un șut în fund primarului',
+    'Excursie prin primarie',
+    'Obitnerea permisiunii de vindere de droguri',
+    'Permisiune pentru incendierea casei de cultură'
+];
+
 
 export default function ServiceList() {
     const classes = useStyles();
