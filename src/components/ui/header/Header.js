@@ -25,14 +25,14 @@ import CountrySelect from './primariasMenu';
 const buttons = [1, 2, 3, 4, 5];
 const iconLinks= [icon1Small, icon2Small, icon3Small, icon4Small, heraldicaSmall];
 
-//generate random number in a certain range
+//generate random number in a certain range with custom user proofing
 const randomNumb = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
 };
 
-let randomIconVar = () => iconLinks[randomNumb(1, 5)];
+let randomIconVar = () => iconLinks[randomNumb(1, iconLinks.length)];
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
         width: '6rem',
         fontSize: '0.6rem',
         padding: '3rem 0rem 0rem 0rem',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#ffffff',
         border: 'solid #337FED 0',
         textAlign: 'center',
         backgroundRepeat: 'no-repeat',
@@ -90,7 +90,8 @@ export default function Header({role}) {
     const classes = useStyles();
     // eslint-disable-next-line react/prop-types
     const [open, setOpen] = useState(false);
-    // de ce 'let' si mai jos 'const'?
+    const [openReg, setOpenReg] = useState(false);
+
     let adminOrNot = role ==='Admin'?
         <Button 
             component={Link} 
@@ -168,7 +169,7 @@ export default function Header({role}) {
                     </Grid>
                     {/*Buttons section*/}
                     <Grid className={classes.gridButtons} item xs={12} >
-                        {/*loops thru the \'buttons\' array*/}
+                        {/* buttons with map thru the \'buttons\' array*/}
                         {buttons.map((card) => (
                             <Button 
                                 key={card} 
@@ -178,11 +179,10 @@ export default function Header({role}) {
                             >Service name from the DB
                             </Button>
                         ))}
-                        {console.log(randomIconVar)}
+
                     </Grid>
                 </Grid>
             </div>
-            {/*<RegisterDialogHeader open={open} setOpen={setOpen}/>*/}
             <LogInDialogHeader open={open} setOpen={setOpen}/>
         </React.Fragment>
     );

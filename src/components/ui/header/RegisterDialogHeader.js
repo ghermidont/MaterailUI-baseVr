@@ -59,7 +59,7 @@ const schema = yup.object().shape({
     password: yup.string()
         .required('No password provided.')
         .min(8, 'Password is too short - should be 8 chars minimum.')
-        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+        .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/, 'Password can only contain Latin letters.'),
     city: yup.string().required(),
     postalCode: yup.number().min(4).max(4).required(),
     address: yup.string().required(),
@@ -116,16 +116,13 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                 <Grid item xs={12}>
                                     {/*Name field*/}
                                     <TextField
-                                        autoComplete="fname"
                                         name="nameSurname"
                                         variant="outlined"
-                                        required
                                         fullWidth
-                                        id="nameSurname"
                                         defaultValue="Ion Rotaru"
                                         label="Nume, prenume sau denumirea plăților"
                                         autoFocus
-                                        ref={register}
+                                        inputRef={register}
                                     />
                                     <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.nameSurname?.message}</Grid>
                                 </Grid>
@@ -139,7 +136,7 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                         label="IDNP/IDNO-ul platitorului"
                                         name="IdNumber"
                                         defaultValue="2002002128888"
-                                        ref={register}
+                                        inputRef={register}
                                     />
                                     <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.IdNumber?.message}</Grid>
                                 </Grid>
@@ -160,14 +157,11 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                     {/*Email field*/}
                                     <TextField
                                         variant="outlined"
-                                        required
                                         fullWidth
-                                        id="email"
                                         label="Adresă email"
                                         name="email"
-                                        autoComplete="email"
                                         defaultValue="abc@abc.com"
-                                        ref={register}
+                                        inputRef={register}
                                     />
                                     <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.email?.message}</Grid>
                                 </Grid>
@@ -175,16 +169,27 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                     {/*Password field*/}
                                     <TextField
                                         variant="outlined"
-                                        required
                                         fullWidth
                                         name="password"
                                         label="Parola"
                                         type="password"
                                         id="password"
-                                        autoComplete="current-password"
                                         helperText="Minim 6 caractere."
-                                        defaultValue="password"
-                                        ref={register}
+                                        defaultValue="Parola"
+                                        inputRef={register}
+                                    />
+                                    <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.password?.message}</Grid>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    {/*Password retype field*/}
+                                    <TextField
+                                        variant="outlined"
+                                        fullWidth
+                                        name="passwordRetype"
+                                        label="Confirmare Parola"
+                                        type="password"
+                                        id="passwordRetype"
+                                        inputRef={register}
                                     />
                                     <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.password?.message}</Grid>
                                 </Grid>
@@ -192,15 +197,12 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                     {/*City field*/}
                                     <TextField
                                         variant="outlined"
-                                        required
                                         fullWidth
                                         name="city"
                                         label="Oras"
-                                        id="city"
-                                        //autoComplete="current-password"
                                         helperText="oras"
                                         defaultValue="Cahul"
-                                        ref={register}
+                                        inputRef={register}
                                     />
                                     <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.city?.message}</Grid>
                                 </Grid>
@@ -208,15 +210,12 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                     {/*Postal code*/}
                                     <TextField
                                         variant="outlined"
-                                        required
                                         fullWidth
                                         name="postalCode"
                                         label="CodPostal"
-                                        id="postalCode"
-                                        //autoComplete="current-password"
                                         helperText="4 cifre"
                                         defaultValue="2001"
-                                        ref={register}
+                                        inputRef={register}
                                     />
                                     <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.postalCode?.message}</Grid>
                                 </Grid>
@@ -224,15 +223,12 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                     {/*Address field*/}
                                     <TextField
                                         variant="outlined"
-                                        required
                                         fullWidth
                                         name="address"
                                         label="Adresa"
-                                        id="address"
-                                        //autoComplete="current-password"
                                         helperText="Minim 6 caractere."
                                         defaultValue="str. Stefan cel Mare 100, sc. 3 ap 50"
-                                        ref={register}
+                                        inputRef={register}
                                     />
                                     <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.address?.message}</Grid>
                                 </Grid>
@@ -243,20 +239,23 @@ export default function RegisterDialogHeader({open, setOpen}) {
                                     />
                                 </Grid>
                             </Grid>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                            >
-                                Sign Up
-                            </Button>
-                            <Grid container justify="flex-end">
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                        Deja aveți un cont? Autentificați-vă
-                                    </Link>
+                            <Grid>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                >
+                                    Sign Up
+                                </Button>
+                                {'/*to Authentication dialog link*/'}
+                                <Grid container justify="flex-end">
+                                    <Grid item>
+                                        <Link href="#" variant="body2">
+                                            Deja aveți un cont? Autentificați-vă
+                                        </Link>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </form>

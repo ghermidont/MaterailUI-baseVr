@@ -16,6 +16,7 @@ export default function DialogElectronicService({open, setOpen, id, setId, schem
     });
 
     console.log(id);
+
     useEffect(() => {
         ElectronicServices.getElectronicServiceById(id).then(
             (response) => {

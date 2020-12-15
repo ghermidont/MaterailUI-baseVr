@@ -18,6 +18,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import RegisterDialogHeader from './RegisterDialogHeader';
 
 
 function Copyright() {
@@ -56,7 +57,10 @@ const useStyles = makeStyles((theme) => ({
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
-    password: yup.number().min(6).max(18).required(),
+    password: yup.string()
+        .required('No password provided.')
+        .min(8, 'Password is too short - should be 8 chars minimum.')
+        .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/, 'Password can only contain Latin letters.')
 });
 
 export default function LogInDialogHeader({open, setOpen}) {
@@ -66,6 +70,7 @@ export default function LogInDialogHeader({open, setOpen}) {
     });
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [openReg, setOpenReg] = useState(false);
     const classes = useStyles();
 
     const handleLogin = (e) => {
@@ -104,16 +109,16 @@ export default function LogInDialogHeader({open, setOpen}) {
                                 variant="outlined" 
                                 margin="normal" 
                                 fullWidth 
-                                id="email" 
                                 label="Poșta electronică"
                                 name="email" 
-                                autoComplete="email"
                                 value={email}
-                                onChange={e=>setEmail(e.target.value)} 
                                 autoFocus
-                                ref={register}
+                                inputRef={register}
                             />
-                            <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.email?.message}</Grid>
+                            <Grid item style={{marginRight: 10, color: '#DB0B18'}}>
+                                {errors.email?.message}
+                            </Grid>
+
                             <TextField 
                                 variant="outlined" 
                                 margin="normal" 
@@ -121,14 +126,15 @@ export default function LogInDialogHeader({open, setOpen}) {
                                 name="password" 
                                 label="Parola"
                                 type="password" 
-                                id="password" 
-                                autoComplete="current-password" 
-                                value={password} 
-                                onChange={e=>setPassword(e.target.value)}
-                                ref={register}
+                                value={password}
+                                inputRef={register}
                             />
-                            <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.password?.message}</Grid>
+                            <Grid item style={{marginRight: 10, color: '#DB0B18'}}>
+                                {errors.password?.message}
+                            </Grid>
+
                             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Țâni-mă minti!"/>
+
                             <Grid item container style={{marginTop: '2em'}} alignItems="center">
                                 <Grid item sx={6}>
                                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleLogin}>Logare</Button>
@@ -142,16 +148,19 @@ export default function LogInDialogHeader({open, setOpen}) {
                                     <Link href="#" variant="body2">Ați uitat parola?</Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">Nu aveți cont? Înregistrați-vă!</Link>
+                                    <Link href="#" variant="body2" onClick={() => setOpenReg(false)}>Nu aveți cont? Înregistrați-vă!</Link>
                                 </Grid>
                             </Grid>
                         </form>
                     </div>
+
                     <Box mt={8}>
                         <Copyright />
                     </Box>
+
                 </Container>
             </DialogContent>
+            <RegisterDialogHeader open={openReg} setOpen={setOpenReg}/>
         </Dialog>
     );
 }
