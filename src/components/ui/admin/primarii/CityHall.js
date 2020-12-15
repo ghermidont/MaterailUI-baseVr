@@ -31,7 +31,7 @@ const schema = yup.object().shape({
 });
 
 export default function CityHall(props) {
-    const {register, handleSubmit, errors, reset, setValue, watch} = useForm({
+    const {register, handleSubmit, errors, setValue, watch, reset} = useForm({
         resolver: yupResolver(schema)
     });
     let myRef = useRef();
@@ -39,7 +39,7 @@ export default function CityHall(props) {
     const [trigger, setTrigger] = useState(0);
     const [editMode, setEditMode] = useState(false);
     const [rowId, setRowId] = useState(null);
-    const watchAllFields = watch();
+    let watchAllFields = watch();
 
     useEffect(() => {
         CityHallService.getListCityHall().then(
@@ -68,6 +68,17 @@ export default function CityHall(props) {
 
     };
 
+    const transformResponseData = (data) => {
+        console.log(data);
+        const x = {
+            id:data.id,
+            name:data.name,
+            banckAccount: data.banckAccount,
+            addressCityHall: data.addressCityHall.reverse()
+        };
+        populateCityHallForm(x);
+    };
+
     const columns = [
         {field: 'id', headerName: 'Id', width: 0,},
         {field: 'name', headerName: 'Name', width: 130},
@@ -79,11 +90,13 @@ export default function CityHall(props) {
                 const onClick = () => {
                     CityHallService.getCityHallById(z.row.id).then(
                         response => {
-                            setRowId(z.row.id),
-                            reset(),
-                            populateCityHallForm(response.data),
-                            setEditMode(true);
-                            window.scrollTo({behavior: 'smooth', top: myRef.current.offsetTop});
+                            setRowId(z.row.id), reset(),
+                            transformResponseData(response.data),
+                            setEditMode(true),
+                            window.scrollTo({
+                                behavior: 'smooth',
+                                top: myRef.current.offsetTop
+                            });
                         }
                     );
                 };
@@ -113,7 +126,7 @@ export default function CityHall(props) {
         }
     ];
 
-    const onSubmit = (data,e) => {
+    const onSubmit = (data, e) => {
 
 
         console.log(data);
@@ -138,7 +151,7 @@ export default function CityHall(props) {
             AddressCityHall: [AddressContactCityHall1]
         };
         console.log(data1);
-        console.log( );
+        console.log();
 
         e.target.getElementsByClassName('Modifica').length ?
             CityHallService.updateCityHall(rowId, data1).then(
@@ -182,7 +195,6 @@ export default function CityHall(props) {
                         <Grid item container direction={'column'} style={{marginTop: 10}}>
                             <Grid item direction='column' style={{marginTop: 10}}>
                                 <Grid item>
-                                    {console.log('RENDER')}
                                     <TextField
                                         id="Name"
                                         label={watchAllFields.Name && editMode ? undefined : 'Nume primarie'}
@@ -386,14 +398,12 @@ export default function CityHall(props) {
                         <Grid item container style={{marginTop: 20}} ref={myRef}>
                             {
                                 !editMode ?
-                                    <Button variant="contained" color="primary" type='submit'
-                                        style={{marginRight: 60,}} className={'test'} id={'testid'} itemID={'testItemId'}>
+                                    <Button variant="contained" color="primary" type='submit' style={{marginRight: 60,}} className={'test'} id={'testid'} itemID={'testItemId'}>
                                         Adauga primarie
                                     </Button>
                                     :
                                     <Grid container justify={'center'}>
-                                        <Button variant="contained" color="primary" type='submit'
-                                            style={{marginRight: 60,}} className={'Modifica'} >
+                                        <Button variant="contained" color="primary" type='submit' style={{marginRight: 60,}} className={'Modifica'}>
                                             Modifica
                                         </Button>
                                         <Button variant="contained" color="secondary" onClick={() => {

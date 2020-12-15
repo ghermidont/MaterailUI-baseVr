@@ -1,10 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import IbanService from '../../../../services/iban.service';
 
-function ViewIban(props) {
-
+function ViewIban({selectedCityHall}) {
+    console.log(selectedCityHall);
+    useEffect(() => {
+        // IbanService.getListIban(selectedCityHall.option.id).then(
+        //     (response) => {
+        //
+        //     }
+        // );
+    }, [selectedCityHall]);
 
     return (
-        <div></div>
+        <div>
+            <p>
+
+            </p>
+        </div>
     );
 }
 

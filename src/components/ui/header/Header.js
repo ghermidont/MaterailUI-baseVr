@@ -124,8 +124,6 @@ export default function Header({role}) {
                     <Grid className={classes.gridButtons} item xs={12} >
                         {/*loops thru the \'buttons\' array*/}
                         {buttons.map((card) => (
-
-
                             <Button key={card} className={classNames(classes.buttons, classes.button)} variant="contained"  style={{backgroundImage: `url(${randomIconVar()})`}}>Service name from the DB</Button>
                         ))}
                     </Grid>

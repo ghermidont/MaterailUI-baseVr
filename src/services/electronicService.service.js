@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Constants from './constants';
 
-const API_URL = Constants.API_URL + 'api/Eservice/';
+const API_URL = Constants.API_URL + 'api/ElectronicService/';
 
 const getListElectronicService = () => {
     return axios.get(API_URL);
