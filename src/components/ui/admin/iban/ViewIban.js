@@ -1,8 +1,17 @@
 import React, {useEffect} from 'react';
 import IbanService from '../../../../services/iban.service';
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        maxWidth: 360,
+        backgroundColor: theme.palette.background.paper,
+    },
+}));
+
+
 function ViewIban({selectedCityHall}) {
-    console.log(selectedCityHall);
+
     useEffect(() => {
         IbanService.getListIban(selectedCityHall.option.id).then(
             (response) => {
@@ -12,11 +21,9 @@ function ViewIban({selectedCityHall}) {
     }, [selectedCityHall]);
 
     return (
-        <div>
-            <p>
+        <List className={classes.root}>
 
-            </p>
-        </div>
+        </List>
     );
 }
 
