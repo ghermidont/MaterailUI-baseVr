@@ -5,7 +5,6 @@
  */
 import React from 'react';
 import Card from '@material-ui/core/Card';
-//import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
@@ -19,6 +18,7 @@ import icon2Small from '../../assets/png/small/icon2Small.png';
 import icon3Small from '../../assets/png/small/icon3Small.png';
 import icon4Small from '../../assets/png/small/icon4Small.png';
 import heraldicaSmall from '../../assets/png/small/heraldicaSmall.png';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -107,6 +107,7 @@ let randomService = () => servicesList[randomNumb(1, servicesList.length)];
 let randomServDescr = () => serviceDescription[randomNumb(1, serviceDescription.length)];
 
 export default function ServiceList() {
+    let history = useHistory();
     const classes = useStyles();
 
     return (
@@ -132,7 +133,7 @@ export default function ServiceList() {
                                     <Typography gutterBottom variant="h5" component="h2" >
 
                                         <Box fontWeight={500} textAlign="center">
-                                            <Link href="/" onClick={() => {console.info('I\'m a button.');}} color="inherit">
+                                            <Link onClick={() => history.push('/service')} color="inherit">
                                                 {randomService()}
                                             </Link>
                                         </Box>
@@ -155,3 +156,5 @@ export default function ServiceList() {
         </React.Fragment>
     );
 }
+
+//TODO: use history push

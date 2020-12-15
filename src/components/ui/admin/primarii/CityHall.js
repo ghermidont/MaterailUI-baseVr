@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form';
-import CityHallService from '../../../../services/cityHall.service';
+import CityHallService from '../../../services/cityHall.service';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';

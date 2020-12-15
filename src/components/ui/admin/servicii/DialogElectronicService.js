@@ -1,7 +1,7 @@
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import React, {useEffect} from 'react';
-import ElectronicServices from '../../../../services/electronicService.service';
+import ElectronicServices from '../../../services/electronicService.service';
 import {useForm} from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
 import {Button, InputAdornment, OutlinedInput, TextField} from '@material-ui/core';

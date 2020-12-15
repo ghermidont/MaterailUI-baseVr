@@ -16,10 +16,9 @@ import icon4Small from '../../../assets/png/small/icon4Small.png';
 import Typography from '@material-ui/core/Typography';
 import heraldicaSmall from '../../../assets/png/small/heraldicaSmall.png';
 //app components import
-//import RegisterDialogHeader from './RegisterDialogHeader';
-import LogInDialogHeader from './LogInDialogHeader';
-import AuthService from '../../../services/auth.service';
-import CountrySelect from './primariasMenu';
+import AuthService from '../../services/auth.service';
+import PrimariasSelect from './primariasMenu';
+import { useHistory } from 'react-router-dom';
 
 //the buttons array sets the number of buttons in the header
 const buttons = [1, 2, 3, 4, 5];
@@ -36,8 +35,6 @@ let randomIconVar = () => iconLinks[randomNumb(1, iconLinks.length)];
 
 const useStyles = makeStyles(theme => ({
     root: {
-        //position: 'sticky',
-        // top MUST be specified in order sticky to work
         top: 0,
         flexGrow: 1,
         minWidth: 500,
@@ -88,9 +85,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header({role}) {
     const classes = useStyles();
-    // eslint-disable-next-line react/prop-types
-    const [open, setOpen] = useState(false);
-    const [openReg, setOpenReg] = useState(false);
+    let history = useHistory();
 
     let adminOrNot = role ==='Admin'?
         <Button 
@@ -100,7 +95,8 @@ export default function Header({role}) {
             color="primary" 
             variant="outlined" 
             startIcon={<ExitToAppIcon/>}
-        >Admin 
+        >
+            Admin
         </Button>:
         <Button 
             component={Link} 
@@ -109,7 +105,8 @@ export default function Header({role}) {
             color="primary" 
             variant="outlined" 
             startIcon={<ExitToAppIcon/>}
-        >Cabinet Personal
+        >
+            Cabinet Personal
         </Button>;
 
     adminOrNot = (typeof role === 'undefined') ? null : adminOrNot;
@@ -120,8 +117,9 @@ export default function Header({role}) {
             color="primary" 
             variant="outlined" 
             startIcon={<ExitToAppIcon/>} 
-            onClick={() => setOpen(true)}
-        >Autentificare
+            onClick={() => history.push('/login')}
+        >
+            Autentificare
         </Button>:
         <Button 
             className={classes.authButton} 
@@ -142,7 +140,7 @@ export default function Header({role}) {
                     justify="center" 
                     alignItems="center">
                     <Grid item xs={12} sm={6}>
-                        <CountrySelect />
+                        <PrimariasSelect />
                     </Grid>
                     <Grid 
                         item xs={12} 
@@ -183,7 +181,7 @@ export default function Header({role}) {
                     </Grid>
                 </Grid>
             </div>
-            <LogInDialogHeader open={open} setOpen={setOpen}/>
+
         </React.Fragment>
     );
 }

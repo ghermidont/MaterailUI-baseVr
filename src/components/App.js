@@ -5,15 +5,16 @@ import {Route, Switch} from 'react-router';
 import Header from './ui/header/Header';
 import theme from './ui/Theme';
 import Footer from './ui/Footer';
-//import SignIn from './ui/SignIn';
-import SignUp from './ui/SignUp';
-import servicesList from './ui/ServiceList';
+import LogIn from '../components/ui/LogInForm';
+import Register from '../components/ui/RegisterForm';
+import ServicesList from './ui/ServiceList';
+import ServicePage from './ui/ServicePage';
 import Checkout from './ui/CheckOutForm/Checkout';
 import Admin from './ui/admin/Admin';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core/styles';
-import AuthService from '../services/auth.service';
-import Constants from '../services/constants';
+import AuthService from './services/auth.service';
+import Constants from './services/constants';
 
 //test
 const useStyles = makeStyles(() => ({
@@ -47,12 +48,12 @@ function App() {
 
                         <BrowserRouter>
                             <Header role={role}/>
-
                             <Switch>
-                                <Route exact path='/' component={servicesList}/>
+                                <Route exact path='/' component={ServicesList}/>
+                                <Route exact path='/register' component={Register}/>
                                 <Route exact path='/admin' component={Admin}/>
-
-                                <Route exact path='/signup' component={SignUp}/>
+                                <Route exact path='/service' component={ServicePage}/>
+                                <Route exact path='/login' component={LogIn}/>
                                 <Route exact path='/pay' component={Checkout}/>Checkout
                             </Switch>
                             <Footer />

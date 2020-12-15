@@ -3,7 +3,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import React, {useEffect, useState} from 'react';
 import * as _ from '@material-ui/data-grid';
 import {DataGrid} from '@material-ui/data-grid';
-import ServiceRole from '../../../../services/role.service';
+import ServiceRole from '../../../services/role.service';
 import SearchModule from './SearchModule';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
