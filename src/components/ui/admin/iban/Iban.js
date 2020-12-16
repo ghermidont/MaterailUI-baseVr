@@ -24,17 +24,20 @@ export default function Iban() {
 
 
     return (
-        <Grid container  style={{minHeight: 400}} direction={'column'}>
+        <Grid container  style={{minHeight: 400}} direction={'column'} >
             <Typography component="h1" variant="h4" align="center">
                 Creati, editati, vizualizati iban-urile pentru primaria selectata.
             </Typography>
-            <Grid container justify={'center'}>
+            <Grid item container justify={'center'}>
                 <IbanAutocomplete setSelectedCityHall={setSelectedCityHall}/>
                 <IconButton aria-label="edit">
                     <AddIcon/>
                 </IconButton>
             </Grid>
-            {selectedCityHall && tmp}
+            <Grid item container justify={'center'}>
+                {selectedCityHall && tmp}
+            </Grid>
+
         </Grid>
     );
 }

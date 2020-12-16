@@ -83,7 +83,7 @@ export default function ElectronicServices(props) {
     return (
         <>
             <Grid container direction='column'>
-                <Grid container justify='center'>
+                <Grid container justify='center' style={{marginTop:15, marginBottom:15}}>
                     <Typography variant="h4" noWrap>
                         Editarea Serviciilor
                     </Typography>

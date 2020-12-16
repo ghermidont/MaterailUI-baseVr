@@ -71,8 +71,8 @@ export default function CityHall(props) {
     const transformResponseData = (data) => {
         console.log(data);
         const x = {
-            id:data.id,
-            name:data.name,
+            id: data.id,
+            name: data.name,
             banckAccount: data.banckAccount,
             addressCityHall: data.addressCityHall.reverse()
         };
@@ -90,13 +90,11 @@ export default function CityHall(props) {
                 const onClick = () => {
                     CityHallService.getCityHallById(z.row.id).then(
                         response => {
-                            setRowId(z.row.id), reset(),
-                            transformResponseData(response.data),
-                            setEditMode(true),
-                            window.scrollTo({
-                                behavior: 'smooth',
-                                top: myRef.current.offsetTop
-                            });
+                            setRowId(z.row.id);
+                            reset();
+                            transformResponseData(response.data);
+                            setEditMode(true);
+                            window.scrollTo({behavior: 'smooth', top: myRef.current.offsetTop});
                         }
                     );
                 };
@@ -398,18 +396,21 @@ export default function CityHall(props) {
                         <Grid item container style={{marginTop: 20}} ref={myRef}>
                             {
                                 !editMode ?
-                                    <Button variant="contained" color="primary" type='submit' style={{marginRight: 60,}} className={'test'} id={'testid'} itemID={'testItemId'}>
+                                    <Button variant="contained" color="primary" type='submit' style={{marginRight: 60,}}
+                                        className={'test'} id={'testid'} itemID={'testItemId'}>
                                         Adauga primarie
                                     </Button>
                                     :
                                     <Grid container justify={'center'}>
-                                        <Button variant="contained" color="primary" type='submit' style={{marginRight: 60,}} className={'Modifica'}>
+                                        <Button variant="contained" color="primary" type='submit'
+                                            style={{marginRight: 60,}} className={'Modifica'}>
                                             Modifica
                                         </Button>
-                                        <Button variant="contained" color="secondary" onClick={() => {
-                                            reset();
-                                            setEditMode(false);
-                                        }}>
+                                        <Button variant="contained" color="secondary"
+                                            onClick={() => {
+                                                reset();
+                                                setEditMode(false);
+                                            }}>
                                             Anuleaza
                                         </Button>
                                     </Grid>

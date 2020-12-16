@@ -11,7 +11,11 @@ const getListIban = (x) => {
     });
 };
 
+const deleteIbanById = (param) => {
+    return axios.delete(API_URL + `/${param}`);
+};
 
 export default {
-    getListIban
+    getListIban,
+    deleteIbanById
 };

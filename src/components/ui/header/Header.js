@@ -20,6 +20,7 @@ import heraldicaSmall from '../../../assets/png/small/heraldicaSmall.png';
 import LogInDialogHeader from './LogInDialogHeader';
 import AuthService from '../../../services/auth.service';
 import CountrySelect from './primariasMenu';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 //the buttons array sets the number of buttons in the header
 const buttons = [1, 2, 3, 4, 5];
@@ -31,6 +32,8 @@ const randomNumb = (min, max) => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
 };
+
+
 
 
 
@@ -92,13 +95,12 @@ export default function Header({role}) {
     const classes = useStyles();
     // eslint-disable-next-line react/prop-types
     const [open, setOpen] = useState(false);
-    // de ce 'let' si mai jos 'const'?
     let adminOrNot = role ==='Admin'?<Button component={Link} to="/admin" className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>}>Admin </Button>:<Button component={Link} to="/pay" className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>}>Cabinet Personal</Button>;
 
     adminOrNot = (typeof role === 'undefined') ? null : adminOrNot;
 
     const loginLogout = (typeof role === 'undefined')?<Button className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>} onClick={() => setOpen(true)}>Autentificare</Button>:<Button className={classes.authButton} color="primary" variant="outlined" startIcon={<ExitToAppIcon/>} onClick={() => AuthService.logout()}>Vă deconectați</Button>;
-
+    const cursValutar = <Button component={Link} to="/cursValutar" className={classes.authButton} color="primary" variant="outlined" startIcon={<AttachMoneyIcon/>}>Curs </Button>;
     return (
         <React.Fragment>
             {console.log(role)}
@@ -110,6 +112,7 @@ export default function Header({role}) {
                     <Grid item xs={12} sm={6} direction="row" justify="flex-end" alignItems="center">
                         {loginLogout}
                         {adminOrNot}
+                        {cursValutar}
                     </Grid>
                     <Grid item xs={12}>
                         <Typography component="div">
