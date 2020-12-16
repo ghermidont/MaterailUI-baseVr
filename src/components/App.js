@@ -43,7 +43,7 @@ function App() {
             {console.log(role)}
             <Grid container direction="column" >
                 <Grid item container>
-                    <Grid className={classes.root} item xs={0} sm={2} />
+                    <Grid className={classes.root} item xs={false} sm={2} />
                     <Grid className={classes.content} item xs={12} sm={8} style={{border: 'solid 1px #707070'}}>
 
                         <BrowserRouter>
@@ -60,7 +60,7 @@ function App() {
                         </BrowserRouter>
 
                     </Grid>
-                    <Grid className={classes.root} item xs={0} sm={2} />
+                    <Grid className={classes.root} item xs={false} sm={2} />
                 </Grid>
             </Grid>
         </ThemeProvider>

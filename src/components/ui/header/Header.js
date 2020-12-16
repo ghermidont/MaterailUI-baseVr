@@ -166,22 +166,21 @@ export default function Header({role}) {
                         </Typography>
                     </Grid>
                     {/*Buttons section*/}
-                    <Grid className={classes.gridButtons} item xs={12} >
+                    <Grid container className={classes.gridButtons} item xs={12}>
                         {/* buttons with map thru the \'buttons\' array*/}
                         {buttons.map((card) => (
-                            <Button 
-                                key={card} 
-                                className={classNames(classes.buttons, classes.button)} 
-                                variant="contained"  
+                            <Button
+                                key={card}
+                                className={classNames(classes.buttons)}
+                                variant="contained"
                                 style={{backgroundImage: `url(${randomIconVar()})`}}
+                                onClick={() => history.push('/service')}
                             >Service name from the DB
                             </Button>
                         ))}
-
                     </Grid>
                 </Grid>
             </div>
-
         </React.Fragment>
     );
 }

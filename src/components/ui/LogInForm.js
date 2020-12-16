@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 const schema = yup.object().shape({
     userEmail: yup.string().email().required(),
-    password: yup.string()
+    Password: yup.string()
         .required('No password provided.')
         .min(8, 'Password is too short - should be 8 chars minimum.')
         .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/, 'Password can only contain Latin letters.')
@@ -62,10 +62,13 @@ const schema = yup.object().shape({
 
 export default function LogInForm() {
     let history = useHistory();
-    const onSubmit = data => console.log(data);
+
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(schema),
     });
+
+    const onSubmit = data => console.log(data);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -121,15 +124,15 @@ export default function LogInForm() {
                         fullWidth 
                         name="password" 
                         label="Parola"
-                        type="password" 
+                        type="Password"
                         value={password}
                         inputRef={register}
                     />
                     <Grid item style={{marginRight: 10, color: '#DB0B18'}}>
-                        {errors.password?.message}
+                        {errors.Password?.message}
                     </Grid>
 
-                    <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Țâni-mă minti!"/>
+                    <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Ține-mă minte"/>
 
                     <Grid item container style={{marginTop: '2em'}} alignItems="center">
                         <Grid item sx={6}>

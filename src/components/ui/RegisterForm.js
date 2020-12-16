@@ -71,6 +71,7 @@ export default function RegisterForm() {
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(schema),
     });
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const classes = useStyles();
@@ -107,14 +108,13 @@ export default function RegisterForm() {
                     Înregistrare
                 </Typography>
                 <form className={classes.form} noValidate>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2}  alignItems="center">
                         <Grid item xs={12}>
                             {/*Name field*/}
                             <TextField
                                 name="nameSurname"
                                 variant="outlined"
                                 fullWidth
-                                defaultValue="Ion Rotaru"
                                 label="Nume, prenume sau denumirea plăților"
                                 autoFocus
                                 inputRef={register}
@@ -130,7 +130,6 @@ export default function RegisterForm() {
                                 id="IdNumber"
                                 label="IDNP/IDNO-ul platitorului"
                                 name="IdNumber"
-                                defaultValue="2002002128888"
                                 inputRef={register}
                             />
                             <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.IdNumber?.message}</Grid>
@@ -155,7 +154,6 @@ export default function RegisterForm() {
                                 fullWidth
                                 label="Adresă email"
                                 name="email"
-                                defaultValue="abc@abc.com"
                                 inputRef={register}
                             />
                             <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.email?.message}</Grid>
@@ -170,7 +168,6 @@ export default function RegisterForm() {
                                 type="password"
                                 id="password"
                                 helperText="Minim 6 caractere."
-                                defaultValue="Parola"
                                 inputRef={register}
                             />
                             <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.password?.message}</Grid>
@@ -183,7 +180,6 @@ export default function RegisterForm() {
                                 name="city"
                                 label="Oras"
                                 helperText="oras"
-                                defaultValue="Cahul"
                                 inputRef={register}
                             />
                             <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.city?.message}</Grid>
@@ -196,7 +192,6 @@ export default function RegisterForm() {
                                 name="postalCode"
                                 label="CodPostal"
                                 helperText="4 cifre"
-                                defaultValue="2001"
                                 inputRef={register}
                             />
                             <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.postalCode?.message}</Grid>
@@ -209,7 +204,6 @@ export default function RegisterForm() {
                                 name="address"
                                 label="Adresa"
                                 helperText="Minim 6 caractere."
-                                defaultValue="str. Stefan cel Mare 100, sc. 3 ap 50"
                                 inputRef={register}
                             />
                             <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.address?.message}</Grid>

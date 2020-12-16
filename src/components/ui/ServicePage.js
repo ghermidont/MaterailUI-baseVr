@@ -55,14 +55,8 @@ const useStyles = makeStyles((theme) => ({
 const schema = yup.object().shape({
     nameSurname:yup.string().required(),
     IdNumber:yup.number().min(13).max(13).required(),
-    password: yup.string()
-        .required('No password provided.')
-        .min(8, 'Password is too short - should be 8 chars minimum.')
-        .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/, 'Password can only contain Latin letters.'),
-    city: yup.string().required(),
-    postalCode: yup.number().min(4).max(4).required(),
-    address: yup.string().required(),
-    email: yup.string().email().required(),
+    sum: yup.number().min(4).max(4).required(),
+
 });
 
 export default function ServicePage() {
@@ -104,17 +98,16 @@ export default function ServicePage() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5" >
-                    Îcompletați detaliile <br/> serviciului
+                    Completați detaliile <br/> serviciului
                 </Typography>
                 <form className={classes.form} noValidate>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12}>
                             {/*Name field*/}
                             <TextField
                                 name="nameSurname"
                                 variant="outlined"
                                 fullWidth
-                                defaultValue="Ion Rotaru"
                                 label="Nume, prenume sau denumirea plăților"
                                 autoFocus
                                 inputRef={register}
@@ -130,7 +123,6 @@ export default function ServicePage() {
                                 id="IdNumber"
                                 label="IDNP/IDNO-ul platitorului"
                                 name="IdNumber"
-                                defaultValue="2002002128888"
                                 inputRef={register}
                             />
                             <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.IdNumber?.message}</Grid>
@@ -155,14 +147,13 @@ export default function ServicePage() {
                                 fullWidth
                                 label="Suma"
                                 name="sum"
-                                defaultValue="abc@abc.com"
                                 inputRef={register}
                             />
                             <Grid item style={{marginRight: 10, color: '#DB0B18'}}>{errors.email?.message}</Grid>
                         </Grid>
 
-                        <Grid container>
-                            <Grid item>
+                        <Grid container spacing={2} alignItems="center">
+                            <Grid item xs={4}>
                                 <Button
                                     type="submit"
                                     fullWidth
@@ -171,6 +162,28 @@ export default function ServicePage() {
                                     className={classes.submit}
                                 >
                                     Achita
+                                </Button>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                >
+                                    Salveaza
+                                </Button>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                >
+                                    Inapoi
                                 </Button>
                             </Grid>
                         </Grid>

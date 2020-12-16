@@ -66,18 +66,18 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const iconLinks = [icon1Small, icon2Small, icon3Small, icon4Small, heraldicaSmall];
 //in production will be formed from the entries obtained from the database.
 const servicesList = [
-    'Achitare impozit pe aer respirat',
-    'Eliberare certificatului de lashara ',
-    'Inregistrarea navei spatiale',
-    'Arendarea primariei pentru evenimete',
-    'Zbor in cosmos',
-    'Un șut în fund primarului',
-    'Excursie prin primarie',
-    'Obitnerea permisiunii de vindere de droguri',
-    'Permisiune pentru incendierea casei de cultură',
-    'Ceva serviciu nepaniatnii',
-    'Imaginatia s-a terminat aproape definitiv',
-    'Imaginatia o zdohnit, blin!'
+    'Achitare impozit pe venit',
+    'Eliberare certificatului de urbanism',
+    'Inregistrarea autromobil',
+    'Inregistrare companie',
+    'Obtinere breveta',
+    'Inchiriere spatii publice',
+    'Certificat sanitar',
+    'Cazier juridic',
+    'Licenta',
+    'Breveta',
+    'Inregistrarea dreptului de autor',
+    'Asigurarea bunurilor imobile'
 ];
 //Services description array
 const serviceDescription = [
