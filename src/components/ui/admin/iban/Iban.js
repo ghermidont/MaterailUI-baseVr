@@ -30,8 +30,11 @@ export default function Iban() {
             </Typography>
             <Grid item container justify={'center'}>
                 <IbanAutocomplete setSelectedCityHall={setSelectedCityHall}/>
-                <IconButton aria-label="edit">
+                <IconButton aria-label="edit" onClick={()=>setValue(1)}>
                     <AddIcon/>
+                </IconButton>
+                <IconButton aria-label="edit" onClick={()=>setValue(0)}>
+                    <EditIcon/>
                 </IconButton>
             </Grid>
             <Grid item container justify={'center'}>

@@ -21,10 +21,10 @@ function IbanAutocomplete({setSelectedCityHall}) {
             id="combo-box-demo"
             options={cityHalls}
             getOptionLabel={(option) => option.name}
-            style={{width: 300}}
+            style={{width: 300, }}
             onChange={(event, value, reason, details) => setSelectedCityHall(details)}
             renderInput={(params) =>
-                <TextField {...params} label="Selectati primaria" variant="outlined"  />}
+                <TextField {...params}   label="Selectati primaria" variant="outlined"  />}
         />
     );
 }

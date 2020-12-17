@@ -9,6 +9,7 @@ import Divider from '@material-ui/core/Divider';
 
 function ViewIban({selectedCityHall}) {
     const [list, setList] = useState([]);
+    const [trigger, setTrigger] = useState(0);
 
     useEffect(() => {
         IbanService.getListIban(selectedCityHall.option.id).then(
@@ -16,22 +17,22 @@ function ViewIban({selectedCityHall}) {
                 setList(response.data);
             }
         );
-    }, [selectedCityHall]);
+    }, [selectedCityHall, trigger]);
 
     const deleteFunction = (id) => {
-        IbanService.deleteIbanById(id);
+        IbanService.deleteIbanById(id).then(x=>setTrigger(prev => prev + 1));
     };
 
     const element = list.map((value) => {
         return (
             <ListItem key={value.id}>
-                <ListItemText id={value.id} primary={value.name} style={{marginRight: 10}}/>
+                <ListItemText id={value.id} primary={value.name} style={{marginRight: 20}}/>
                 <Divider orientation="vertical" flexItem/>
                 <ListItemText id={value.id * 2} primary={value.electronicService}
-                    style={{marginLeft: 10, marginRight: 10}}/>
+                    style={{marginLeft: 20, marginRight: 20}}/>
                 <Divider orientation="vertical" flexItem/>
                 <ListItemSecondaryAction onClick={() => deleteFunction(value.id)}>
-                    <IconButton edge="end" >
+                    <IconButton edge="end">
                         <DeleteForeverIcon/>
                     </IconButton>
                 </ListItemSecondaryAction>

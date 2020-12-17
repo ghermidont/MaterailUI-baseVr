@@ -1,13 +1,20 @@
-import React from 'react';
-import {Controller, useFieldArray, useForm} from 'react-hook-form';
-import {Grid} from '@material-ui/core';
+import React, {useEffect, useState} from 'react';
+import {useFieldArray, useForm} from 'react-hook-form';
+import {Grid, ListItem, TextField} from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ElectronicService from '../../../../services/electronicService.service';
+import {Autocomplete} from '@material-ui/lab';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import PlusOneIcon from '@material-ui/icons/PlusOne';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import SendIcon from '@material-ui/icons/Send';
 
-let renderCount = 0;
 
 export default function AddIban() {
-    const {register, control, handleSubmit, reset, watch} = useForm({
+    const {register, control, handleSubmit, reset, watch, errors} = useForm({
         defaultValues: {
-            test: [{firstName: 'Bill', lastName: 'Luo'}]
+            test: [{firstName: 'aaa', lastName: 'bbb'}]
         }
     });
     const {fields, append, prepend, remove, swap, move, insert} = useFieldArray(
@@ -17,97 +24,81 @@ export default function AddIban() {
         }
     );
 
+    const [electronicServices, setElectronicServices] = useState([]);
+
+    useEffect(() => {
+        ElectronicService.getListElectronicService().then(
+            (response) => {
+                setElectronicServices(response.data);
+            }
+        );
+    }, []);
+
+
     const onSubmit = (data) => console.log('data', data);
 
 
-
     return (
-        <Grid container >
-            <Grid item container justify={'center'} >
+        <Grid container>
+            <Grid item container justify={'center'}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <h1>Field Array </h1>
-                    <p>The following demo allow you to delete, append, prepend items</p>
-                    <span className="counter">Render Count: {renderCount}</span>
-                    <ul>
+
+                    <List>
                         {fields.map((item, index) => {
                             return (
-                                <li key={item.id}>
-                                    <input
-                                        name={`test[${index}].firstName`}
-                                        defaultValue={`${item.firstName}`} // make sure to set up defaultValue
-                                        ref={register()}
-                                    />
+                                <ListItem key={item.id}>
+                                    <Grid container direction={'column'}>
+                                        <Grid item container>
+                                            <TextField
+                                                size={'small'}
+                                                label={'Iban'}
+                                                name={`test[${index}].Name`}
+                                                variant="outlined"
+                                                style={{width: 270}}
+                                                inputRef={register({required: true})}
+                                            />
+                                            <Autocomplete
+                                                size={'small'}
+                                                id="combo-box-demo"
+                                                options={electronicServices}
+                                                getOptionLabel={(option) => option.label}
+                                                style={{width: 250}}
 
-                                    <Controller
-                                        as={<input/>}
-                                        name={`test[${index}].lastName`}
-                                        control={control}
-                                        defaultValue={item.lastName} // make sure to set up defaultValue
-                                    />
-                                    <button type="button" onClick={() => remove(index)}>
-                                        Delete
-                                    </button>
-                                </li>
+                                                onChange={(event, value, reason, details) => console.log(details)}
+                                                renderInput={(params) =>
+                                                    <TextField {...params} label="eServiciu" variant="outlined"
+                                                        name={`test[${index}].ElectronicServiceId`}
+                                                        inputRef={register}/>}
+                                            />
+                                            <IconButton aria-label="edit" onClick={() => remove(index)}>
+                                                <DeleteForeverIcon/>
+                                            </IconButton>
+                                        </Grid>
+                                        <Grid item container style={{color: 'rgb(211,47,47)'}}>
+                                            {errors?.test && errors.test[index] && errors.test[index].Name && 'Last name is required'}
+                                        </Grid>
+                                    </Grid>
+                                </ListItem>
                             );
                         })}
-                    </ul>
+                    </List>
                     <section>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                append({firstName: 'appendBill', lastName: 'appendLuo'});
-                            }}
-                        >
-                            append
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() =>
-                                prepend({
-                                    firstName: 'prependFirstName',
-                                    lastName: 'prependLastName'
-                                })
-                            }
-                        >
-                            prepend
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() =>
-                                insert(parseInt(2, 10), {
-                                    firstName: 'insertFirstName',
-                                    lastName: 'insertLastName'
-                                })
-                            }
-                        >
-                            insert at
-                        </button>
+                        <IconButton aria-label="edit" onClick={() => {append();}}>
+                            <PlusOneIcon/>
+                        </IconButton>
 
-                        <button type="button" onClick={() => swap(1, 2)}>
-                            swap
-                        </button>
+                        <IconButton aria-label="edit" onClick={() =>
+                            reset({
+                                test: [{firstName: 'xxx', lastName: 'xxx'}]
+                            })
+                        }>
+                            <RefreshIcon/>
+                        </IconButton>
 
-                        <button type="button" onClick={() => move(1, 2)}>
-                            move
-                        </button>
-
-                        <button type="button" onClick={() => remove(1)}>
-                            remove at
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() =>
-                                reset({
-                                    test: [{firstName: 'Bill', lastName: 'Luo'}]
-                                })
-                            }
-                        >
-                            reset
-                        </button>
+                        <IconButton type="submit">
+                            <SendIcon/>
+                        </IconButton>
                     </section>
-
-                    <input type="submit"/>
                 </form>
             </Grid>
 
