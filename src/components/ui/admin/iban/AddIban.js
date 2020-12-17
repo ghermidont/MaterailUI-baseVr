@@ -9,6 +9,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import PlusOneIcon from '@material-ui/icons/PlusOne';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import SendIcon from '@material-ui/icons/Send';
+//import require from 'iban';
 
 
 export default function AddIban() {
@@ -25,6 +26,8 @@ export default function AddIban() {
     );
 
     const [electronicServices, setElectronicServices] = useState([]);
+
+    //const validateIban = (str) => require('iban').isValid(str);
 
     useEffect(() => {
         ElectronicService.getListElectronicService().then(
@@ -55,7 +58,7 @@ export default function AddIban() {
                                                 name={`test[${index}].Name`}
                                                 variant="outlined"
                                                 style={{width: 270}}
-                                                inputRef={register({required: true})}
+                                                inputRef={register({required: true, })}
                                             />
                                             <Autocomplete
                                                 size={'small'}
@@ -75,7 +78,7 @@ export default function AddIban() {
                                             </IconButton>
                                         </Grid>
                                         <Grid item container style={{color: 'rgb(211,47,47)'}}>
-                                            {errors?.test && errors.test[index] && errors.test[index].Name && 'Last name is required'}
+                                            {errors?.test && errors.test[index] && errors.test[index].Name.type ==='validate' && 'ValidIban'}
                                         </Grid>
                                     </Grid>
                                 </ListItem>

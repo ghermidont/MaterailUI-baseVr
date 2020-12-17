@@ -13,6 +13,7 @@
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "eol-converter-cli": "^1.0.8",
+    "iban": "0.0.14",
     "jss-plugin-nested": "^10.5.0",
     "material-ui-popup-state": "^1.7.0",
     "react": "^17.0.1",

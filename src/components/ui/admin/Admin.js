@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import Roles from './roluri/Roles';
 import ElectronicServices from './servicii/ElectronicServices';
 import CityHall from './primarii/CityHall';
-import Iban from './iban/Iban';
+import Iban1 from './iban/Iban1';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,7 +38,7 @@ export default function Admin(props) {
         tmp = <CityHall/>;
         break;
     case 3:
-        tmp = <Iban/>;
+        tmp = <Iban1/>;
         break;
     }
     return (

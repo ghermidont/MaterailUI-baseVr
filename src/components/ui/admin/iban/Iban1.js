@@ -9,7 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import ViewIban from './ViewIban';
 
-export default function Iban() {
+export default function Iban1() {
     const [value, setValue] = useState(0);
     const [selectedCityHall, setSelectedCityHall] = useState(null);
     let tmp = null;
