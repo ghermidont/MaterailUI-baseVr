@@ -9,15 +9,34 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import PlusOneIcon from '@material-ui/icons/PlusOne';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import SendIcon from '@material-ui/icons/Send';
-//import require from 'iban';
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
+import IbanTester from 'iban';
+
+
+export const schema = yup.object().shape({
+    test: yup.array().of(
+        yup.object().shape({
+            Name: yup
+                .string()
+                .test('test-name', 'Iban error',
+                    function (value) {
+                        return (IbanTester.isValid(value));
+                    })
+                .max(24)
+        })
+    )
+});
 
 
 export default function AddIban() {
-    const {register, control, handleSubmit, reset, watch, errors} = useForm({
+    const {register, control, handleSubmit, reset, errors} = useForm({
         defaultValues: {
             test: [{firstName: 'aaa', lastName: 'bbb'}]
-        }
+        },
+        resolver: yupResolver(schema)
     });
+
     const {fields, append, prepend, remove, swap, move, insert} = useFieldArray(
         {
             control,
@@ -27,7 +46,7 @@ export default function AddIban() {
 
     const [electronicServices, setElectronicServices] = useState([]);
 
-    //const validateIban = (str) => require('iban').isValid(str);
+
 
     useEffect(() => {
         ElectronicService.getListElectronicService().then(
@@ -58,7 +77,7 @@ export default function AddIban() {
                                                 name={`test[${index}].Name`}
                                                 variant="outlined"
                                                 style={{width: 270}}
-                                                inputRef={register({required: true, })}
+                                                inputRef={register()}
                                             />
                                             <Autocomplete
                                                 size={'small'}
@@ -71,14 +90,15 @@ export default function AddIban() {
                                                 renderInput={(params) =>
                                                     <TextField {...params} label="eServiciu" variant="outlined"
                                                         name={`test[${index}].ElectronicServiceId`}
-                                                        inputRef={register}/>}
+                                                        inputRef={register()}/>}
                                             />
                                             <IconButton aria-label="edit" onClick={() => remove(index)}>
                                                 <DeleteForeverIcon/>
                                             </IconButton>
                                         </Grid>
                                         <Grid item container style={{color: 'rgb(211,47,47)'}}>
-                                            {errors?.test && errors.test[index] && errors.test[index].Name.type ==='validate' && 'ValidIban'}
+                                            {/*{errors?.test && errors.test[index] && errors.test[index].Name && 'ValidIban'}*/}
+                                            <p>{errors?.test?.[index]?.Name?.message && '{Iban gresit}'}</p>
                                         </Grid>
                                     </Grid>
                                 </ListItem>
@@ -86,7 +106,9 @@ export default function AddIban() {
                         })}
                     </List>
                     <section>
-                        <IconButton aria-label="edit" onClick={() => {append();}}>
+                        <IconButton aria-label="edit" onClick={() => {
+                            append();
+                        }}>
                             <PlusOneIcon/>
                         </IconButton>
 
